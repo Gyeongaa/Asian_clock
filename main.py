@@ -3,8 +3,7 @@ from datetime import datetime
 import pytz
 
 from PIL import Image, ImageTk
-
-from korean import kr_speak_the_clock
+from korean import kr_clock
 
 
 # Create the main window
@@ -13,9 +12,9 @@ mainUI.title("Asian Time")
 
 # Use a relative path to open the background image
 background_image = Image.open("images/background_map.png")
-background_image = background_image.resize(
-    (mainUI.winfo_screenwidth(), mainUI.winfo_screenheight())
-)
+mainUI.geometry("1920x1080")
+
+print(background_image)
 background_photo = ImageTk.PhotoImage(background_image)
 
 # Set the window size to match the background image size
@@ -77,12 +76,12 @@ button2 = tk.Button(
     compound=tk.TOP,
     command=lambda: show_world_time("Asia/Tokyo"),
 )
+
 button3 = tk.Button(
     mainUI,
     text="KOREA",
     compound=tk.TOP,
-    command=lambda: kr_speak_the_clock()
-    #show_world_time("Asia/Seoul"),
+    command=lambda: [show_world_time("Asia/Seoul"), kr_clock()],
 )
 button4 = tk.Button(
     mainUI,

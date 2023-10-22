@@ -8,7 +8,6 @@ import librosa
 import numpy as np
 import pygame
 import soundfile as sf
-from scipy.io import wavfile
 import time
 
 
@@ -56,11 +55,6 @@ def cut_silence(signal,sr=16000,threshold=0.09,padding=40):
 # Function used for reading the audio
 def read_audio(filename: str, path: str):
     audio, sr = librosa.load(path + filename, sr=None)
-    #sr, audio = wavfile.read(path + filename)
-    # Audio in Romanian has already been manually processed, thus no extra
-    # processing is required
-    if path != './RomanianAudio/':
-        audio = cut_silence(audio,sr=sr)
     return audio
 
 

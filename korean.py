@@ -24,7 +24,7 @@ def get_sec_filename(s: int):
     path = 'seconds/'
     return path + str(s) + 's.wav'
 
-def kr_speak_the_clock(speed_rate=1):
+def kr_clock(speed_rate=1):
     hour, minute, second = get_current_time()
 
     if minute != 0 and second !=0:
