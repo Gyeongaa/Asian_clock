@@ -13,6 +13,29 @@
 [STEP 6: Multilingual Support] What makes this clock truly special is its multilingual support. You can easily switch between languages on the main screen. For example, if you initially chose Japanese but want to hear the time in Thai, simply select "Thai" from the language dropdown, and the clock will instantly switch languages.
 [OUTRO] You've just experienced an Asian Talking Clock with multilingual support for Singapore, Japan, China, Korea, and Thailand. It's a versatile and user-friendly clock that announces the time in your preferred language. Thanks for joining me in this walk-through. Enjoy using your new Talking Clock!
 
+##############Technical Documentation and Reflection###################
+1. Code Comments and Explanations
+Our code is extensively documented to ensure clarity and maintainability. We've included comments throughout the codebase to explain the purpose of functions, classes, and complex logic. This documentation aids not only our team but also any future developers who may work on this project. It also ensures that the code is self-explanatory.
+Example Code Comment:
+
+
+2. List of Resources and Libraries
+We have used a range of resources, libraries, and APIs in our project to enhance its functionality. It's essential to acknowledge and document these components to maintain transparency and facilitate further development.
+List of Key Resources and Libraries:
+Python (3.8+)
+Tkinter for the GUI
+gTTS (Google Text-to-Speech) library
+pydub for audio processing
+Others, as needed
+
+3. Reflection on Technical Challenges
+Throughout the development of the Talking Clock, we encountered several technical challenges. Reflecting on these challenges provides valuable insights into the development process and identifies areas for improvement.
+Technical Challenge: 
+4. Limitations of the Project
+Acknowledging project limitations is essential for managing expectations and directing future improvements. We must be transparent about what our Talking Clock can and cannot do.
+Project Limitation: 
+Reflection: 
+By including detailed documentation and reflections in these areas, we ensure that the development process is well-documented, challenges are addressed, and potential improvements are identified for future enhancements to the Talking Clock project. This also encourages transparency and fosters a collaborative development environment.
 
 
 
