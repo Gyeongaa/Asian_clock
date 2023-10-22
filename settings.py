@@ -15,9 +15,9 @@ import time
 # Function used to get the time that we will process to get the correct
 # audio files
 def get_current_time():
-    current_time = time.strftime('%H:%M')
+    current_time = time.strftime('%H:%M:%S')
     split_time = current_time.split(':')
-    return int(split_time[0]), int(split_time[1])
+    return int(split_time[0]), int(split_time[1]), int(split_time[2])
 
 
 # Function used to cut the silence at the beginning and end of an audio signal
