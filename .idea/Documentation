@@ -5,13 +5,13 @@
 3, after clicking the location icons, the corresponding time will be shown above the map
 
 #############Video Walk-through script################
-[INTRO] Hello, and welcome to this walk-through of an Asian Talking Clock with multilingual support for Singapore, Japan, China, Korea, and Thailand. I'll guide you through the user interface step by step. Let's get started!
+[INTRO] Hello, and welcome to this walk-through of an Asian Talking Clock with multilingual support for Singapore, Japan, China, Korea, and Thailand. I'll guide you through the user interface step by step, and now, we've added the ability to adjust the speech rate of the audio. Let's get started!
 [STEP 1: Language Selection] When you first open the page, you'll be presented with an Asian map. You can choose your preferred language from the dropdown menu. You'll find options for Singapore English, Japanese, Chinese, Korean, and Thai. Select your desired language and click "Continue."
-[STEP 2: Main Clock Interface] Host: Now, you're in the main clock interface. Here, you'll see a digital clock displaying the current time, you'll hear the time announced in your chosen language. For example, if you selected Japanese, you'll hear the time spoken aloud in Japanese.
-[STEP 3: 12-Hour Format] Time will be displayed in 12-hour time format, the clock will announce the time in the 12-hour format, such as 2:30 PM.
-[STEP 4: Alarm Feature] The page also includes an Alarm feature. Click on the "Set Alarm" button to configure alarms. You can choose the time, recurrence, and a label in your preferred country. When the alarm time arrives, the clock will announce it in your chosen language.
-[STEP 6: Multilingual Support] What makes this clock truly special is its multilingual support. You can easily switch between languages on the main screen. For example, if you initially chose Japanese but want to hear the time in Thai, simply select "Thai" from the language dropdown, and the clock will instantly switch languages.
-[OUTRO] You've just experienced an Asian Talking Clock with multilingual support for Singapore, Japan, China, Korea, and Thailand. It's a versatile and user-friendly clock that announces the time in your preferred language. Thanks for joining me in this walk-through. Enjoy using your new Talking Clock!
+[STEP 2: Main Clock Interface] Now, you're in the main clock interface. Here, you'll see a digital clock displaying the current time, and you'll hear the time announced in your chosen language at your preferred speech rate. For example, if you select Japanese, you'll hear the time spoken aloud in Japanese.
+[STEP 3: 12-Hour Format] Time will be displayed in the 12-hour time format, and the clock will announce the time in the 12-hour format, such as 2:30 PM, all at your selected speech rate.
+[STEP 4: Alarm Feature] The page also includes an Alarm feature. Click on the "Set Alarm" button to configure alarms. You can choose the time, recurrence, and a label in your preferred country. When the alarm time arrives, the clock will announce it in your chosen language and speech rate.
+[STEP 6: Multilingual Support] What makes this clock truly special is its multilingual support. You can easily switch between languages on the main screen. For example, if you initially chose Japanese but want to hear the time in Thai, simply select "Thai" from the language dropdown, and the clock will instantly switch languages with your preferred speech rate.
+[OUTRO] You've just experienced an Asian Talking Clock with multilingual support for Singapore, Japan, China, Korea, and Thailand, now with customizable speech rates. It's a versatile and user-friendly clock that announces the time in your preferred language, and you have the flexibility to set the speech rate to your liking. Thanks for joining me in this walk-through. Enjoy using your new Talking Clock!
 
 ##############Technical Documentation and Reflection###################
 1. Code Comments and Explanations
