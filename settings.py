@@ -80,4 +80,3 @@ def play_audio(audio_names, speed_rate, volume_level, lang_path):
 
     except Exception as e:
         print("An error occurred:", e)
-

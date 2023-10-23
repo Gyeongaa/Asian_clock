@@ -102,45 +102,103 @@ def show_world_time(timezone_name: str):
     # Start updating the time label in this window
     update_local_time()
 
+def enable_buttons():
+        # Enable buttons
+    for button in buttons:
+        button.config(state="active")
+def button1_callback():
+    # Disable buttons
+    for button in buttons:
+        button.config(state="disabled")
 
+    # Start the show_world_time and ch_clock threads
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Shanghai",))
+    thread2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.daemon = True
+    thread2.daemon = True
+    thread1.start()
+    thread2.start()
+
+    # enable buttons
+    mainUI.after(8500, enable_buttons)
+
+def button2_callback():
+    for button in buttons:
+        button.config(state="disabled")
+
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Tokyo",))
+    thread2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.start()
+    thread2.start()
+    mainUI.after(8500, enable_buttons)
+
+def button3_callback():
+    for button in buttons:
+        button.config(state="disabled")
+
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Seoul",))
+    thread2 = threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.start()
+    thread2.start()
+    mainUI.after(8500, enable_buttons)
+
+def button4_callback():
+    # Disable buttons
+
+    for button in buttons:
+        button.config(state="disabled")
+
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Bangkok",))
+    thread2 = threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.start()
+    thread2.start()
+    mainUI.after(8500, enable_buttons)
+
+def button5_callback():
+    # Disable buttons
+
+    for button in buttons:
+        button.config(state="disabled")
+
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Singapore",))
+    thread2 = threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.start()
+    thread2.start()
+    mainUI.after(8500, enable_buttons)
 
 # Create buttons for different countries
 button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command= lambda : [threading.Thread(target=show_world_time, args=("Asia/Shanghai",)).start(),
-                       threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
+    command= lambda : button1_callback()
 )
 button2 = tk.Button(
     mainUI,
     text="JAPAN",
     compound=tk.TOP,
-    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Tokyo",)).start(),
-                     threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
+    command=lambda: button2_callback()
 )
 button3 = tk.Button(
     mainUI,
     text="KOREA",
     compound=tk.TOP,
-    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Seoul",)).start(),
-                     threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
+    command=lambda: button3_callback()
 )
 button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Bangkok",)).start(),
-                     threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
+    command=lambda: button4_callback()
 )
 button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command= lambda: [threading.Thread(target=show_world_time, args=("Asia/Singapore",)).start(),
-                     threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
+    command= lambda: button5_callback()
 )
 
+buttons = [button1, button2, button3, button4, button5]
 # Place the buttons
 button1.pack(pady=10)
 button2.pack(pady=10)
@@ -179,3 +237,5 @@ mainUI.bind("<Configure>", lambda event: update_button_positions())
 
 # Start the main Tkinter event loop
 mainUI.mainloop()
+
+
