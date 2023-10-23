@@ -26,27 +26,42 @@ background_label = tk.Label(mainUI, image=background_photo)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Create a label for the default time text
-default_time_label = tk.Label(
-    mainUI, text="Default: Singapore time", font=("Helvetica", 24, "bold"), bg="white"
-)
+default_time_label = tk.Label(mainUI, text="Default: Singapore time",
+                              font=("Helvetica", 24, "bold"), bg="white")
 default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="w")
 
 # Create a label for displaying the current time
 current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
 current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
 
-def slider_func(val):
-    new_val = min(play_rates, key=lambda x: abs(x - float(SpeedRate.get())))
+def slider_sr(val): #slider for speed rate
+    new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
     SpeedRate.set(new_val)
 
-play_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+def slider_vl(val): #slider for volume level
+    new_val = min(volume_level, key=lambda x: abs(x - float(VolumeLevel.get())))
+    VolumeLevel.set(new_val)
 
-SpeedRate = tk.Scale(mainUI, from_=0.5, to=2,
-                     font=("Helvetica", 12, "bold"), command=slider_func,
+
+speed_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+volume_level = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+SpeedRate = tk.Scale(mainUI, from_=0.25, to=2,
+                     font=("Helvetica", 12, "bold"), command=slider_sr,
                      orient="horizontal", digits=3, resolution=0.25)
 SpeedRate.set(1)
 SpeedRate.place(x=20, y=500)
 SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey',length=360)
+
+VolumeLevel = tk.Scale(mainUI, from_ = 0, to = 1,
+                       font =("Helvetica", 12, "bold"), command = slider_vl,
+                       orient = "horizontal", digits = 3, resolution = 0.1)
+
+VolumeLevel.set(1)
+VolumeLevel.place(x = 20, y = 600)
+VolumeLevel.configure(bg = 'white', label = 'Change the volume level', troughcolor = 'grey', length = 360)
+
+
 
 
 # Function to update the Singapore time label
@@ -92,32 +107,31 @@ button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock(SpeedRate.get())]
+    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock(SpeedRate.get(), VolumeLevel.get())]
 )
 button2 = tk.Button(
     mainUI,
     text="JAPAN",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock(SpeedRate.get())]
+    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock(SpeedRate.get(), VolumeLevel.get())]
 )
-
 button3 = tk.Button(
     mainUI,
     text="KOREA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Seoul"), kr_clock(SpeedRate.get())],
+    command=lambda: [show_world_time("Asia/Seoul"), kr_clock(SpeedRate.get(), VolumeLevel.get())],
 )
 button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Bangkok"),th_clock(SpeedRate.get())]
+    command=lambda: [show_world_time("Asia/Bangkok"),th_clock(SpeedRate.get(), VolumeLevel.get())]
 )
 button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Singapore"),sg_clock(SpeedRate.get())],
+    command=lambda: [show_world_time("Asia/Singapore"),sg_clock(SpeedRate.get(), VolumeLevel.get())],
 )
 
 # Place the buttons

@@ -24,7 +24,7 @@ def get_sec_filename(s: int):
     path = 'seconds/'
     return path + str(s) + 's.wav'
 
-def ch_clock(speed_rate=1):
+def ch_clock(speed_rate=1, volume_level=1):
     hour, minute, second = get_current_time("Asia/Shanghai")
 
     if minute != 0 and second !=0:
@@ -40,4 +40,4 @@ def ch_clock(speed_rate=1):
         audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour),
                        get_hour_filename(hour)]
 
-    play_audio(audio_names, speed_rate, 'MandarinAudios/')
+    play_audio(audio_names, speed_rate, volume_level, 'MandarinAudios/')

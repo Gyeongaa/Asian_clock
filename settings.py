@@ -47,21 +47,20 @@ def concatenate_audio(filenames, lang_path):
 
 
 # Convert array of file names to resulting concatenated audio, then plays that
-def play_audio(audio_names, speed_rate, lang_path):
+def play_audio(audio_names, speed_rate, volume_level,lang_path):
     sr, result_audio = concatenate_audio(audio_names, lang_path)
     # Apply time stretching only if needed
     if speed_rate != 1:
         result_audio = librosa.effects.time_stretch(result_audio,
                                                     rate=float(speed_rate))
 
-    # Convert to 16-bit integer format so the audio player understands it
-    #result_audio = np.array(result_audio, dtype=np.int16)
     # Write the result as a .wav file
-    print(sr, result_audio)
     sf.write('result.wav', result_audio, sr)
     # Code related to playing the audio file
     pygame.mixer.init()
+
     aud = pygame.mixer.Sound('result.wav')
+    aud.set_volume(volume_level)
     aud.play()
     # Apply this so the audio can play without interruption
     time.sleep(aud.get_length())

@@ -20,7 +20,7 @@ def get_sec_filename(s: int):
     path = 'seconds/'
     return path + str(s) + 's.wav'
 
-def sg_clock(speed_rate=1):
+def sg_clock(speed_rate=1,volume_level=1):
     hour, minute, second = get_current_time("Asia/Singapore")
 
     audio_names = ['Hello.wav', 'Its.wav']
@@ -33,4 +33,4 @@ def sg_clock(speed_rate=1):
     audio_names.append(get_sec_filename(second))
     audio_names.append(get_which_meridium(hour))
 
-    play_audio(audio_names, speed_rate, 'EnglishAudios/')
+    play_audio(audio_names, speed_rate, volume_level, 'EnglishAudios/')

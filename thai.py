@@ -83,7 +83,7 @@ It presents hour information first then minute information, followed by the seco
     return audio_names
 
 
-def th_clock(speed_rate=1):
+def th_clock(speed_rate=1, volume_level=1):
     """this function plays video according to present the current time in Thaiand in Thai in complete sentences."""
 
     hour, minute, second = get_current_time("Asia/Bangkok")
@@ -97,5 +97,5 @@ def th_clock(speed_rate=1):
     else:
         audio_names = hour_audios(hour)
 
-    play_audio(audio_names, speed_rate, 'ThaiAudios/')
+    play_audio(audio_names, speed_rate, volume_level, 'ThaiAudios/')
 
