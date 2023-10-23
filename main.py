@@ -4,7 +4,10 @@ import pytz
 
 from PIL import Image, ImageTk
 from korean import kr_clock
-
+from Japanese import jp_clock
+from singapore import sg_clock
+from thai import th_speak_the_clock
+from  chinese import ch_clock
 
 # Create the main window
 mainUI = tk.Tk()
@@ -62,19 +65,29 @@ def show_world_time(timezone_name):
     time_label = tk.Label(local_time_window, text=time_str, font=("Helvetica", 20))
     time_label.pack(pady=20)
 
+    # Function to update the time label in this window
+    def update_local_time():
+        current_time = datetime.now(local_timezone)
+        time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
+        time_str = time_str.lstrip("0").replace(" 0", " ")
+        time_label.config(text=time_str)
+        local_time_window.after(1000, update_local_time)  # Update every second
+
+    # Start updating the time label in this window
+    update_local_time()
 
 # Create buttons for different countries
 button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command=lambda: show_world_time("Asia/Shanghai"),
+    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock()]
 )
 button2 = tk.Button(
     mainUI,
     text="JAPAN",
     compound=tk.TOP,
-    command=lambda: show_world_time("Asia/Tokyo"),
+    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock()]
 )
 
 button3 = tk.Button(
@@ -87,13 +100,13 @@ button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: show_world_time("Asia/Bangkok"),
+    command=lambda: [show_world_time("Asia/Bangkok"),th_speak_the_clock()]
 )
 button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command=lambda: show_world_time("Asia/Singapore"),
+    command=lambda: [show_world_time("Asia/Singapore"),sg_clock()],
 )
 
 # Place the buttons
@@ -107,8 +120,8 @@ button5.pack(pady=10)
 # Function to update button positions based on window size
 def update_button_positions():
     button1.place(
-        x=830 * mainUI.winfo_width() / background_image.width,
-        y=430 * mainUI.winfo_height() / background_image.height,
+        x=1000 * mainUI.winfo_width() / background_image.width,
+        y=450 * mainUI.winfo_height() / background_image.height,
     )
     button2.place(
         x=1250 * mainUI.winfo_width() / background_image.width,
