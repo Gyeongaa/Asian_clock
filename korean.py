@@ -25,7 +25,7 @@ def get_sec_filename(s: int):
     return path + str(s) + 's.wav'
 
 def kr_clock(speed_rate=1):
-    hour, minute, second = get_current_time()
+    hour, minute, second = get_current_time("Asia/Seoul")
 
     if minute != 0 and second !=0:
         audio_names = ['Hello.wav','current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
