@@ -1,7 +1,7 @@
 import tkinter as tk
 from datetime import datetime
 import pytz
-
+import threading
 from PIL import Image, ImageTk
 from korean import kr_clock
 from Japanese import jp_clock
@@ -74,11 +74,11 @@ def update_singapore_time():
 
 
 # Start updating the Singapore time label
-update_singapore_time()
+
 
 
 # Function to show local time
-def show_world_time(timezone_name):
+def show_world_time(timezone_name: str):
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)
     time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
@@ -102,36 +102,43 @@ def show_world_time(timezone_name):
     # Start updating the time label in this window
     update_local_time()
 
+
+
 # Create buttons for different countries
 button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock(SpeedRate.get(), VolumeLevel.get())]
+    command= lambda : [threading.Thread(target=show_world_time, args=("Asia/Shanghai",)).start(),
+                       threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
 )
 button2 = tk.Button(
     mainUI,
     text="JAPAN",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock(SpeedRate.get(), VolumeLevel.get())]
+    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Tokyo",)).start(),
+                     threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
 )
 button3 = tk.Button(
     mainUI,
     text="KOREA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Seoul"), kr_clock(SpeedRate.get(), VolumeLevel.get())],
+    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Seoul",)).start(),
+                     threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
 )
 button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Bangkok"),th_clock(SpeedRate.get(), VolumeLevel.get())]
+    command=lambda: [threading.Thread(target=show_world_time, args=("Asia/Bangkok",)).start(),
+                     threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
 )
 button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Singapore"),sg_clock(SpeedRate.get(), VolumeLevel.get())],
+    command= lambda: [threading.Thread(target=show_world_time, args=("Asia/Singapore",)).start(),
+                     threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get())).start()]
 )
 
 # Place the buttons
@@ -165,7 +172,8 @@ def update_button_positions():
         y=930 * mainUI.winfo_height() / background_image.height,
     )
 
-
+t1 = threading.Thread(target=update_singapore_time)
+t1.start()
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: update_button_positions())
 
