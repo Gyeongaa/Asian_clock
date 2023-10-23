@@ -92,32 +92,32 @@ button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock()]
+    command=lambda: [show_world_time("Asia/Shanghai"),ch_clock(SpeedRate.get())]
 )
 button2 = tk.Button(
     mainUI,
     text="JAPAN",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock()]
+    command=lambda: [show_world_time("Asia/Tokyo"), jp_clock(SpeedRate.get())]
 )
 
 button3 = tk.Button(
     mainUI,
     text="KOREA",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Seoul"), kr_clock()],
+    command=lambda: [show_world_time("Asia/Seoul"), kr_clock(SpeedRate.get())],
 )
 button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Bangkok"),th_clock()]
+    command=lambda: [show_world_time("Asia/Bangkok"),th_clock(SpeedRate.get())]
 )
 button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Singapore"),sg_clock()],
+    command=lambda: [show_world_time("Asia/Singapore"),sg_clock(SpeedRate.get())],
 )
 
 # Place the buttons
