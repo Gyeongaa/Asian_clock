@@ -21,7 +21,7 @@ def get_current_time(timezone_name):
 
 
 # Function used for reading the audio
-def read_audio(filename: str, path: str):
+def get_audio(filename: str, path: str):
     audio, sr = librosa.load(path + filename, sr=None)
     return audio
 
@@ -42,7 +42,7 @@ def concatenate_audio(filenames, lang_path):
     audio = []
     sr = get_sr(filenames[0], lang_path)
     for name in filenames:
-        audio = np.concatenate((audio, read_audio(name, lang_path)))
+        audio = np.concatenate((audio, get_audio(name, lang_path)))
     return sr, audio
 
 
