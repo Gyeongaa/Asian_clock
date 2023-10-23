@@ -45,7 +45,7 @@ def hour_audios(hr):
 
     elif hr <= 23 and hr >= 18:
         # When it's 6-11pm, the format is the number of the hour + "pm" (for 6-11)
-        audio_names += [hour_file(hr), "pm_6_11_.wav"]
+        audio_names += [hour_file(hr), "pm_6_11.wav"]
 
     elif hr == 0:
         # A specific word for 12am
