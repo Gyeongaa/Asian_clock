@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from korean import kr_clock
 from Japanese import jp_clock
 from singapore import sg_clock
-from thai import th_speak_the_clock
+from thai import th_clock
 from  chinese import ch_clock
 
 # Create the main window
@@ -100,7 +100,7 @@ button4 = tk.Button(
     mainUI,
     text="THAILAND",
     compound=tk.TOP,
-    command=lambda: [show_world_time("Asia/Bangkok"),th_speak_the_clock()]
+    command=lambda: [show_world_time("Asia/Bangkok"),th_clock()]
 )
 button5 = tk.Button(
     mainUI,
