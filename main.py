@@ -15,7 +15,6 @@ mainUI.title("Asian Time")
 
 # Use a relative path to open the background image
 
-
 background_image = Image.open("images/background_map.png")
 background_photo = ImageTk.PhotoImage(background_image)
 
@@ -43,7 +42,7 @@ def slider_func(val):
 play_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
 SpeedRate = tk.Scale(mainUI, from_=0.5, to=2,
-                     font = 'bold', command=slider_func,
+                     font=("Helvetica", 12, "bold"), command=slider_func,
                      orient="horizontal", digits=3, resolution=0.25)
 SpeedRate.set(1)
 SpeedRate.place(x=20, y=500)
