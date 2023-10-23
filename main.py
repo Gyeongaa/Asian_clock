@@ -7,17 +7,16 @@ from korean import kr_clock
 from Japanese import jp_clock
 from singapore import sg_clock
 from thai import th_clock
-from  chinese import ch_clock
+from chinese import ch_clock
 
 # Create the main window
 mainUI = tk.Tk()
 mainUI.title("Asian Time")
 
 # Use a relative path to open the background image
-background_image = Image.open("images/background_map.png")
-mainUI.geometry("1920x1080")
 
-print(background_image)
+
+background_image = Image.open("images/background_map.png")
 background_photo = ImageTk.PhotoImage(background_image)
 
 # Set the window size to match the background image size
@@ -36,6 +35,19 @@ default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="
 # Create a label for displaying the current time
 current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
 current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
+
+def slider_func(val):
+    new_val = min(play_rates, key=lambda x: abs(x - float(SpeedRate.get())))
+    SpeedRate.set(new_val)
+
+play_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+
+SpeedRate = tk.Scale(mainUI, from_=0.5, to=2,
+                     font = 'bold', command=slider_func,
+                     orient="horizontal", digits=3, resolution=0.25)
+SpeedRate.set(1)
+SpeedRate.place(x=20, y=500)
+SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey',length=360)
 
 
 # Function to update the Singapore time label
