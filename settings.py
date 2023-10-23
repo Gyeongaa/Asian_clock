@@ -47,22 +47,37 @@ def concatenate_audio(filenames, lang_path):
 
 
 # Convert array of file names to resulting concatenated audio, then plays that
-def play_audio(audio_names, speed_rate, volume_level,lang_path):
-    sr, result_audio = concatenate_audio(audio_names, lang_path)
-    # Apply time stretching only if needed
-    if speed_rate != 1:
-        result_audio = librosa.effects.time_stretch(result_audio,
-                                                    rate=float(speed_rate))
+def play_audio(audio_names, speed_rate, volume_level, lang_path):
+    try:
+        sr, result_audio = concatenate_audio(audio_names, lang_path)
 
-    # Write the result as a .wav file
-    sf.write('result.wav', result_audio, sr)
-    # Code related to playing the audio file
-    pygame.mixer.init()
+        # Apply time stretching only if needed
+        if speed_rate != 1:
+            result_audio = librosa.effects.time_stretch(result_audio, rate=float(speed_rate))
 
-    aud = pygame.mixer.Sound('result.wav')
-    aud.set_volume(volume_level)
-    aud.play()
-    # Apply this so the audio can play without interruption
-    time.sleep(aud.get_length())
-    # Unload to make sure we can rewrite "result.wav" again in the same session
-    pygame.mixer.music.unload()
+        # Write the result as a .wav file
+        sf.write('result.wav', result_audio, sr)
+
+        # Initialize the mixer
+        pygame.mixer.init()
+
+        # Check if the mixer is already initialized
+        if not pygame.mixer.get_init():
+            raise Exception("Mixer not initialized")
+
+        # Load and play the audio
+        pygame.mixer.music.load('result.wav')
+        pygame.mixer.music.set_volume(volume_level)
+        pygame.mixer.music.play()
+
+        # Ensure the audio plays without interruption
+        while pygame.mixer.music.get_busy():
+            time.sleep(0.1)
+
+        # Unload to make sure we can rewrite "result.wav" again in the same session
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
+
+    except Exception as e:
+        print("An error occurred:", e)
+
