@@ -86,7 +86,7 @@ It presents hour information first then minute information, followed by the seco
 def th_speak_the_clock(speed_rate=1):
     """this function plays video according to present the current time in Thaiand in Thai in complete sentences."""
 
-    hour, minute, second = get_current_time()
+    hour, minute, second = get_current_time("Asia/Bangkok")
 
     # to present Thai time depending whether the time is on the hour and on the minute
     if minute != 0:
