@@ -18,6 +18,7 @@ from tkinter import OptionMenu, StringVar
 mainUI = tk.Tk()
 mainUI.title("Asian Time")
 pygame.init()
+pygame.mixer.init()
 
 # Use a relative path to open the background image
 
