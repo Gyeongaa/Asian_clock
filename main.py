@@ -265,20 +265,20 @@ button5.pack(pady=10)
 # Function to update button positions based on window size
 def update_button_positions():
     button1.place(
-        x=660 * mainUI.winfo_width() / background_image.width,
-        y=345 * mainUI.winfo_height() / background_image.height,
+        x=660,
+        y=345,
     )
     button2.place(
-        x=1020 * mainUI.winfo_width() / background_image.width,
-        y=300 * mainUI.winfo_height() / background_image.height,
+        x=1020,
+        y=300,
     )
     button3.place(#korea
         x=910,
-        y=300 * mainUI.winfo_height() / background_image.height,
+        y=300,
     )
     button4.place(
-        x=620 * mainUI.winfo_width() / background_image.width,
-        y=540 * mainUI.winfo_height() / background_image.height,
+        x=620,
+        y=540,
     )
     button5.place(
         x=640 * mainUI.winfo_width() / background_image.width,
@@ -317,6 +317,8 @@ ampm_menu.pack()
 # Create labels and entry widgets for name and timezone
 name_label = tk.Label(custom_alarm_window, text="Enter Alarm Name:")
 name_entry = tk.Entry(custom_alarm_window, font=("Helvetica", 12))
+if name_label == "":
+    name_entry = "Default"
 name_label.pack()
 name_entry.pack()
 
