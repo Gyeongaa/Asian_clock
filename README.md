@@ -1,8 +1,7 @@
 # Asian_clock
 
 ## Project description
-This is the talking clock that we developed for the course 'Introduction to Voice Technology.' The talking clock can announce the current time in five Asian countries: China, Singapore, Thailand, Japan, and Korea. It does so in their respective time zones and languages, providing clear audio outputs. Additionally, it features an alarm function that allows users to set reminders for specific tasks in particular time zones.
-
+This talking clock was developed as a group project for the 'Introduction to Voice Technology' and 'Programming' courses as part of the MSc Voice Technology program at RUG - Campus Fryslan.
 
 ## Installation
 To get started, follow the installation instructions below.
@@ -17,11 +16,14 @@ To get started, follow the installation instructions below.
 
 
 ## Usage
-Run `python main.py` in the terminal. Make sure to be in the same directory where the repository is installed in the terminal. It will open an interactive GUI with which you can interact with.
+Open the terminal and change the current working directory to the one where the repository is installed. Run python main.py in the terminal.
 
-Each button will tell the current time in a different language. The text on each  button says "What's the time?" in the language it will speak. For example, in Romania people say "Cât e(ste) ceasul?" to ask about the current time.
+An interactive GUI window will pop up, displaying an Asian map with flags marking five Asian countries. Next to each country, there is a button that the user can click on. When a button with the country's name is clicked, the clock will tell the current time in that country in its language.
 
-The slider at the bottom adjusts the speed at which the time is said. A setting of `1.5` will tell the time 1.5x faster than the default speech rate.
+On the left side of the window, the current time in Singapore is shown by default. Below the time, there are two slider bars that allow users to adjust the speaking rate (0-2) and volume (0-1) of the audio according to their preferences. There is also a 'Toggle Mode' button that lets users switch to different modes.
+
+In the lower-left corner, there is a 'Set Custom Alarm' button, which allows users to set alarm times in one of the five Asian timezones to remind themselves of specific tasks. After the alarm is set, a text with the format 'Alarm Alarm_name: year-month-date hour-minute-second AM/PM is set' is diaplayed.
+
 
 ## Languages supported
 - Chinese 
@@ -44,10 +46,4 @@ The slider at the bottom adjusts the speed at which the time is said. A setting 
 
 
 ## GDPR Compliance
-The audio files used were generated using TTS APIs. For Romanian, Polish, Irish and French, Narakeet was used (https://www.narakeet.com/languages/).
-The voice used for Romanian was Alina, for Polish, Justyna, for Irish, Dearbhla, and for French, Marion.
-The French voice is meant to resemble Metropolitan French, whereas the Irish voice resembles Ulster (or colloquially known as Donegal) Irish.
 
-No consent forms were required for the collection of this data since there were no individuals recorded by us
-to generate this speech. The data used for the speaking clock therefore complies
-with GDPR regulations.
