@@ -2,21 +2,31 @@ import tkinter as tk
 from datetime import datetime
 import pytz
 import threading
+import pygame
+
+import time
+from tkinter import OptionMenu
 from PIL import Image, ImageTk
 from korean import kr_clock
 from Japanese import jp_clock
 from singapore import sg_clock
 from thai import th_clock
 from chinese import ch_clock
+from tkinter import OptionMenu, StringVar
 
 # Create the main window
 mainUI = tk.Tk()
 mainUI.title("Asian Time")
+pygame.init()
 
 # Use a relative path to open the background image
 
-background_image = Image.open("images/background_map.png")
+background_image = Image.open("images/Asia_Map_Updated.png")
 background_photo = ImageTk.PhotoImage(background_image)
+
+# Import the night version background image
+night_background_image = Image.open("images/Asia_Map_Night_Updated.png")
+night_background_photo = ImageTk.PhotoImage(night_background_image)
 
 # Set the window size to match the background image size
 mainUI.geometry(f"{background_image.width}x{background_image.height}")
@@ -34,11 +44,13 @@ default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="
 current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
 current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
 
-def slider_sr(val): #slider for speed rate
+
+def slider_sr(val):  # slider for speed rate
     new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
     SpeedRate.set(new_val)
 
-def slider_vl(val): #slider for volume level
+
+def slider_vl(val):  # slider for volume level
     new_val = min(volume_level, key=lambda x: abs(x - float(VolumeLevel.get())))
     VolumeLevel.set(new_val)
 
@@ -51,17 +63,25 @@ SpeedRate = tk.Scale(mainUI, from_=0.25, to=2,
                      orient="horizontal", digits=3, resolution=0.25)
 SpeedRate.set(1)
 SpeedRate.place(x=20, y=500)
-SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey',length=360)
+SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
 
-VolumeLevel = tk.Scale(mainUI, from_ = 0, to = 1,
-                       font =("Helvetica", 12, "bold"), command = slider_vl,
-                       orient = "horizontal", digits = 3, resolution = 0.1)
+VolumeLevel = tk.Scale(mainUI, from_=0, to=1,
+                       font=("Helvetica", 12, "bold"), command=slider_vl,
+                       orient="horizontal", digits=3, resolution=0.1)
 
 VolumeLevel.set(1)
-VolumeLevel.place(x = 20, y = 600)
-VolumeLevel.configure(bg = 'white', label = 'Change the volume level', troughcolor = 'grey', length = 360)
+VolumeLevel.place(x=20, y=600)
+VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
+# ...
 
+# Create a label for the default time text
+default_time_label = tk.Label(mainUI, text="Default: Singapore time", font=("Helvetica", 24, "bold"), bg="white")
+default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="w")
+
+# Create a label for displaying the current time
+current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
+current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
 
 
 # Function to update the Singapore time label
@@ -74,7 +94,33 @@ def update_singapore_time():
 
 
 # Start updating the Singapore time label
+update_singapore_time()
 
+# Define a variable to keep track of the current mode
+current_mode = "Light Mode"
+
+
+# Function to toggle between Light Mode and Dark Mode
+def toggle_mode():
+    global current_mode
+    if current_mode == "Light Mode":
+        # Switch to Dark Mode
+        background_label.config(image=night_background_photo)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        default_time_label.config(fg="black", bg='white')
+        current_time_label.config(fg="black", bg='white')
+        current_mode = "Dark Mode"
+    else:
+        # Switch back to Light Mode
+        background_label.config(image=background_photo)
+        default_time_label.config(fg="black")
+        current_time_label.config(fg="black")
+        current_mode = "Light Mode"
+
+
+# Create a button to toggle between modes
+mode_button = tk.Button(mainUI, text="Toggle Mode", command=toggle_mode)
+mode_button.place(x=20, y=700)
 
 
 # Function to show local time
@@ -102,10 +148,13 @@ def show_world_time(timezone_name: str):
     # Start updating the time label in this window
     update_local_time()
 
+
 def enable_buttons():
-        # Enable buttons
+    # Enable buttons
     for button in buttons:
         button.config(state="active")
+
+
 def button1_callback():
     # Disable buttons
     for button in buttons:
@@ -122,6 +171,7 @@ def button1_callback():
     # enable buttons
     mainUI.after(8500, enable_buttons)
 
+
 def button2_callback():
     for button in buttons:
         button.config(state="disabled")
@@ -132,6 +182,7 @@ def button2_callback():
     thread2.start()
     mainUI.after(8500, enable_buttons)
 
+
 def button3_callback():
     for button in buttons:
         button.config(state="disabled")
@@ -141,6 +192,7 @@ def button3_callback():
     thread1.start()
     thread2.start()
     mainUI.after(8500, enable_buttons)
+
 
 def button4_callback():
     # Disable buttons
@@ -154,6 +206,7 @@ def button4_callback():
     thread2.start()
     mainUI.after(8500, enable_buttons)
 
+
 def button5_callback():
     # Disable buttons
 
@@ -166,12 +219,13 @@ def button5_callback():
     thread2.start()
     mainUI.after(8500, enable_buttons)
 
+
 # Create buttons for different countries
 button1 = tk.Button(
     mainUI,
     text="CHINA",
     compound=tk.TOP,
-    command= lambda : button1_callback()
+    command=lambda: button1_callback()
 )
 button2 = tk.Button(
     mainUI,
@@ -195,7 +249,7 @@ button5 = tk.Button(
     mainUI,
     text="SINGAPORE",
     compound=tk.TOP,
-    command= lambda: button5_callback()
+    command=lambda: button5_callback()
 )
 
 buttons = [button1, button2, button3, button4, button5]
@@ -230,12 +284,150 @@ def update_button_positions():
         y=930 * mainUI.winfo_height() / background_image.height,
     )
 
+
 t1 = threading.Thread(target=update_singapore_time)
 t1.start()
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: update_button_positions())
 
+# Create a new window for setting custom alarms
+custom_alarm_window = tk.Toplevel(mainUI)
+custom_alarm_window.title("Set Custom Alarm")
+custom_alarm_window.withdraw()
+
+custom_alarm_window.geometry("400x600")
+
+# Create labels for time, name, and timezone
+time_label = tk.Label(custom_alarm_window, text="Set Alarm Time:")
+time_label.pack()
+hour_var = StringVar()
+minute_var = StringVar()
+ampm_var = StringVar()
+
+# Create OptionMenus for hour, minute, and AM/PM
+hour_menu = OptionMenu(custom_alarm_window, hour_var, *range(1, 13))
+minute_menu = OptionMenu(custom_alarm_window, minute_var, *range(0, 60))
+ampm_menu = OptionMenu(custom_alarm_window, ampm_var, "AM", "PM")
+
+hour_menu.pack()
+minute_menu.pack()
+ampm_menu.pack()
+
+# Create labels and entry widgets for name and timezone
+name_label = tk.Label(custom_alarm_window, text="Enter Alarm Name:")
+name_entry = tk.Entry(custom_alarm_window, font=("Helvetica", 12))
+name_label.pack()
+name_entry.pack()
+
+timezone_label = tk.Label(custom_alarm_window, text="Select Timezone:")
+timezone_var = tk.StringVar()
+timezone_var.set("Asia/Singapore")  # 默认时区
+timezone_menu = tk.OptionMenu(custom_alarm_window, timezone_var, "Asia/Singapore", "Asia/Shanghai", "Asia/Tokyo",
+                              "Asia/Seoul", "Asia/Bangkok")
+timezone_menu.config(font=("Helvetica", 12))
+timezone_label.pack()
+timezone_menu.pack()
+
+# Function to open the custom alarm window
+custom_alarms = []
+
+
+def open_custom_alarm_window():
+    new_custom_alarm_window = tk.Toplevel(mainUI)
+    new_custom_alarm_window.title("Set Custom Alarm")
+    new_custom_alarm_window.geometry("400x600")
+
+    # Create labels for time, name, and timezone
+    time_label = tk.Label(new_custom_alarm_window, text="Set Alarm Time:")
+    time_label.pack()
+
+    hour_var = tk.StringVar()
+    minute_var = tk.StringVar()
+    ampm_var = tk.StringVar()
+
+    # Create OptionMenus for hour, minute, and AM/PM
+    hour_menu = tk.OptionMenu(new_custom_alarm_window, hour_var, *range(0, 12))
+    minute_menu = tk.OptionMenu(new_custom_alarm_window, minute_var, *range(0, 60))
+    ampm_menu = tk.OptionMenu(new_custom_alarm_window, ampm_var, "AM", "PM")
+
+    hour_menu.pack()
+    minute_menu.pack()
+    ampm_menu.pack()
+
+    name_label = tk.Label(new_custom_alarm_window, text="Enter Alarm Name:")
+    name_entry = tk.Entry(new_custom_alarm_window, font=("Helvetica", 12))
+    name_label.pack()
+    name_entry.pack()
+
+    timezone_label = tk.Label(new_custom_alarm_window, text="Select Timezone:")
+    timezone_var = tk.StringVar()
+    timezone_var.set("Asia/Singapore")  # Default timezone
+    timezone_menu = tk.OptionMenu(new_custom_alarm_window, timezone_var, "Asia/Singapore", "Asia/Shanghai",
+                                  "Asia/Tokyo", "Asia/Seoul", "Asia/Bangkok")
+    timezone_menu.config(font=("Helvetica", 12))
+    timezone_label.pack()
+    timezone_menu.pack()
+
+    # Create a label to display the confirmation message
+    confirmation_label = tk.Label(new_custom_alarm_window, text="", font=("Helvetica", 14))
+    confirmation_label.pack()
+
+    # Function to set a custom alarm
+    def set_custom_alarm(custom_alarm_window):
+        hour = int(hour_var.get())
+        minute = int(minute_var.get())
+        ampm = ampm_var.get()
+        alarm_name = name_entry.get()
+        alarm_timezone = timezone_var.get()
+
+        # Convert to 24-hour format
+        if ampm == "PM":
+            hour += 12
+
+        local_timezone = pytz.timezone(alarm_timezone)
+        current_time = datetime.now(local_timezone).replace(microsecond=0)
+
+        alarm_time = current_time.replace(hour=hour, minute=minute, second=0)
+        time_difference = (alarm_time - current_time).total_seconds()
+
+        confirmation_text = f"Alarm ({alarm_name}): {alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+        confirmation_label.config(text=confirmation_text)
+
+        # Schedule the alarm to trigger after the time difference elapses
+        mainUI.after(int(time_difference * 1000), lambda: trigger_alarm(alarm_name, custom_alarm_window))
+
+    # Function to trigger the alarm
+    def trigger_alarm(alarm_name, custom_alarm_window):
+        # Play the alarm sound (modify this line to use your own sound)
+        alarm_sound = pygame.mixer.Sound("alarm.wav")
+        alarm_sound.play()
+
+        # Close the custom alarm window after the alarm triggers
+        custom_alarm_window.destroy()
+
+    # Create a button to set the custom alarm
+    set_alarm_button = tk.Button(new_custom_alarm_window, text="Set Alarm",
+                                 command=lambda: set_custom_alarm(new_custom_alarm_window))
+    set_alarm_button.pack()
+
+    # Append the new custom alarm window to the list
+    custom_alarms.append(new_custom_alarm_window)
+
+
+
+# Create a button to open the custom alarm window
+open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=open_custom_alarm_window)
+open_alarm_window_button.place(x=20, y=750)
+
+# Create a list to store custom alarms
+custom_alarms = []
+
+
+# Function to open a new custom alarm window
+
+# Create a button to open the custom alarm window
+open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=open_custom_alarm_window)
+open_alarm_window_button.place(x=20, y=750)
+
 # Start the main Tkinter event loop
 mainUI.mainloop()
-
-
