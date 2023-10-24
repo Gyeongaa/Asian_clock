@@ -22,7 +22,7 @@ pygame.mixer.init()
 
 # Use a relative path to open the background image
 
-background_image = Image.open("images/Asia_Map_Updated.png")
+background_image = Image.open("images/Asia_Map_Resized.png")
 background_photo = ImageTk.PhotoImage(background_image)
 
 # Import the night version background image
@@ -31,7 +31,7 @@ night_background_photo = ImageTk.PhotoImage(night_background_image)
 
 # Set the window size to match the background image size
 mainUI.geometry(f"{background_image.width}x{background_image.height}")
-
+mainUI.resizable(False, False)
 # Create a Label to display the background image, using relwidth and relheight to fill the entire window
 background_label = tk.Label(mainUI, image=background_photo)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -265,24 +265,24 @@ button5.pack(pady=10)
 # Function to update button positions based on window size
 def update_button_positions():
     button1.place(
-        x=1000 * mainUI.winfo_width() / background_image.width,
-        y=450 * mainUI.winfo_height() / background_image.height,
+        x=660 * mainUI.winfo_width() / background_image.width,
+        y=345 * mainUI.winfo_height() / background_image.height,
     )
     button2.place(
-        x=1250 * mainUI.winfo_width() / background_image.width,
-        y=400 * mainUI.winfo_height() / background_image.height,
+        x=1020 * mainUI.winfo_width() / background_image.width,
+        y=300 * mainUI.winfo_height() / background_image.height,
     )
-    button3.place(
-        x=1120 * mainUI.winfo_width() / background_image.width,
-        y=380 * mainUI.winfo_height() / background_image.height,
+    button3.place(#korea
+        x=910,
+        y=300 * mainUI.winfo_height() / background_image.height,
     )
     button4.place(
-        x=800 * mainUI.winfo_width() / background_image.width,
-        y=730 * mainUI.winfo_height() / background_image.height,
+        x=620 * mainUI.winfo_width() / background_image.width,
+        y=540 * mainUI.winfo_height() / background_image.height,
     )
     button5.place(
-        x=790 * mainUI.winfo_width() / background_image.width,
-        y=930 * mainUI.winfo_height() / background_image.height,
+        x=640 * mainUI.winfo_width() / background_image.width,
+        y=680 * mainUI.winfo_height() / background_image.height,
     )
 
 
@@ -348,9 +348,11 @@ def open_custom_alarm_window():
 
     # Create OptionMenus for hour, minute, and AM/PM
     hour_menu = tk.OptionMenu(new_custom_alarm_window, hour_var, *range(0, 12))
+    hour_menu.configure(width=50)
     minute_menu = tk.OptionMenu(new_custom_alarm_window, minute_var, *range(0, 60))
+    minute_menu.config(width=50)
     ampm_menu = tk.OptionMenu(new_custom_alarm_window, ampm_var, "AM", "PM")
-
+    ampm_menu.config(width=50)
     hour_menu.pack()
     minute_menu.pack()
     ampm_menu.pack()
