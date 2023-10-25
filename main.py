@@ -13,6 +13,7 @@ from Japanese import jp_clock
 from singapore import sg_clock
 from thai import th_clock
 from chinese import ch_clock
+from ChineseNatural import ch_natural_clock
 from tkinter import OptionMenu, StringVar
 from settings import get_current_time
 
@@ -214,6 +215,18 @@ def button5_callback():
     thread2.start()
     mainUI.after(8500, enable_buttons)
 
+def button6_callback():
+    # Disable buttons
+
+    for button in buttons:
+        button.config(state="disabled")
+
+    thread1 = threading.Thread(target=show_world_time, args=("Asia/Singapore",))
+    thread2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+    thread1.start()
+    thread2.start()
+    mainUI.after(8500, enable_buttons)
+
 # Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
 def china_audio(*args):
     selected_audio = audio_choice.get()
@@ -229,7 +242,6 @@ def china_audio(*args):
 # A combobox is created to choose synthetic or natural chinese voice for button China
 # Create a variable to store the selected audio choice
 audio_choice = tk.StringVar()
-
 
 # Create a Combobox (dropdown) with audio choices for Chinese
 button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
