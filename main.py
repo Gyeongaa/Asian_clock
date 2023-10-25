@@ -76,11 +76,27 @@ VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='
 
 
 def set_background():
-    hour, minute, second = get_current_time("Asia/Singapore")
+    hour= get_current_time("Asia/Singapore")[0]
     if hour >= 6 and hour <= 18:
-        background_label.config(image=background_photo)
+            background_label.config(image=background_photo)
     else:
         background_label.config(image=night_background_photo)
+
+def change_background(mode):
+    if mode == "Light":
+        background_label.config(image=background_photo)
+    elif mode == "Dark":
+        background_label.config(image=night_background_photo)
+
+
+# Create a button to toggle between modes
+mode_choice = tk.StringVar()
+mode_combobox = ttk.Combobox(mainUI, textvariable=mode_choice)
+mode_combobox["values"] = ("Light", "Dark")
+mode_combobox.set("Light")
+mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(mode_choice.get()))
+mode_combobox.configure(width=20)
+mode_combobox.place(x=20, y=500)
 
 # Function to update the Singapore time label
 def update_singapore_time():
@@ -92,32 +108,10 @@ def update_singapore_time():
 
 # Start updating the Singapore time label
 update_singapore_time()
-
-# Define a variable to keep track of the current mode
-current_mode = "Light Mode"
-
+t1 = threading.Thread(target=update_singapore_time)
+t1.start()
 
 # Function to toggle between Light Mode and Dark Mode
-def change_mode():
-    global current_mode
-    if current_mode == "Light Mode":
-        # Switch to Dark Mode
-        background_label.config(image=night_background_photo)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
-        default_time_label.config(fg="black", bg='white')
-        current_time_label.config(fg="black", bg='white')
-        current_mode = "Dark Mode"
-    else:
-        # Switch back to Light Mode
-        background_label.config(image=background_photo)
-        current_mode = "Light Mode"
-
-
-# Create a button to toggle between modes
-mode_button = tk.Button(mainUI, text="Light/Dark", command=change_mode)
-mode_button.configure(width=20)
-mode_button.place(x=20, y=500)
-
 
 
 def show_world_time(timezone_name: str):
@@ -264,8 +258,7 @@ button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
 
-t1 = threading.Thread(target=update_singapore_time)
-t1.start()
+
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: set_background())
 
