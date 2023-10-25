@@ -119,12 +119,16 @@ mode_button.configure(width=20)
 mode_button.place(x=20, y=500)
 
 
-# Function to show local
+
 def show_world_time(timezone_name: str):
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)
     time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
     time_str = time_str.lstrip("0").replace(" 0", " ")
+    return time_str
+
+def show_local_time(time_zone):
+    time_str = show_world_time(time_zone)
 
     # Create a new window to display local time
     local_time_window = tk.Toplevel(mainUI)
@@ -132,17 +136,14 @@ def show_world_time(timezone_name: str):
     local_time_window.geometry("300x100")
     time_label = tk.Label(local_time_window, text=time_str, font=("Helvetica", 20))
     time_label.pack(pady=20)
+    time_label.config(text=time_str)
 
-    # Function to update the time label in this window
     def update_local_time():
-        current_time = datetime.now(local_timezone)
-        time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
-        time_str = time_str.lstrip("0").replace(" 0", " ")
+        time_str = show_world_time(time_zone)
         time_label.config(text=time_str)
-        local_time_window.after(1000, update_local_time)  # Update every second
-
-    # Start updating the time label in this window
+        local_time_window.after(1000, update_local_time)
     update_local_time()
+
 
 
 def enable_buttons():
@@ -157,7 +158,7 @@ def button1_callback():
         button.config(state="disabled")
 
     # Start the show_world_time and ch_clock threads
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Shanghai",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Shanghai",))
     thread2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.daemon = True
     thread2.daemon = True
@@ -172,7 +173,7 @@ def button2_callback():
     for button in buttons:
         button.config(state="disabled")
 
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Tokyo",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Tokyo",))
     thread2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.start()
     thread2.start()
@@ -183,7 +184,7 @@ def button3_callback():
     for button in buttons:
         button.config(state="disabled")
 
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Seoul",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Seoul",))
     thread2 = threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.start()
     thread2.start()
@@ -196,7 +197,7 @@ def button4_callback():
     for button in buttons:
         button.config(state="disabled")
 
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Bangkok",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Bangkok",))
     thread2 = threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.start()
     thread2.start()
@@ -205,11 +206,10 @@ def button4_callback():
 
 def button5_callback():
     # Disable buttons
-
     for button in buttons:
         button.config(state="disabled")
 
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Singapore",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Singapore",))
     thread2 = threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.start()
     thread2.start()
@@ -217,11 +217,10 @@ def button5_callback():
 
 def button6_callback():
     # Disable buttons
-
     for button in buttons:
         button.config(state="disabled")
 
-    thread1 = threading.Thread(target=show_world_time, args=("Asia/Singapore",))
+    thread1 = threading.Thread(target=show_local_time, args=("Asia/Shanghai",))
     thread2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
     thread1.start()
     thread2.start()
@@ -258,18 +257,17 @@ button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: b
 buttons = [button1, button2, button3, button4, button5]
 
 # Function to update button positions based on window size
-def update_button_positions():
-    button1.place(x=630, y=345)
-    button2.place(x=1020, y=300)
-    button3.place(x=910, y=300)
-    button4.place(x=620, y=540)
-    button5.place(x=640, y=680)
+button1.place(x=630, y=345)
+button2.place(x=1020, y=300)
+button3.place(x=910, y=300)
+button4.place(x=620, y=540)
+button5.place(x=640, y=680)
 
 
 t1 = threading.Thread(target=update_singapore_time)
 t1.start()
 # Bind a function to the <Configure> event to update button positions
-mainUI.bind("<Configure>", lambda event: [update_button_positions(), set_background()])
+mainUI.bind("<Configure>", lambda event: set_background())
 
 # Create a new window for setting custom alarms
 custom_alarm_window = tk.Toplevel(mainUI)
