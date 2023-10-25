@@ -40,12 +40,11 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 # Create a label for the default time text
 default_time_label = tk.Label(mainUI, text="Default: Singapore time",
                               font=("Helvetica", 24, "bold"), bg="white")
-default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="w")
+default_time_label.place(x=20, y=200, anchor="w")
 
 # Create a label for displaying the current time
 current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
-current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
-
+current_time_label.place(x=20, y=235, anchor="w")
 
 def slider_sr(val):  # slider for speed rate
     new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
@@ -61,7 +60,7 @@ SpeedRate = tk.Scale(mainUI, from_=0.25, to=2,
                      font=("Helvetica", 12, "bold"), command=slider_sr,
                      orient="horizontal", digits=3, resolution=0.25)
 SpeedRate.set(1) #default value is 1
-SpeedRate.place(x=20, y=500)
+SpeedRate.place(x=20, y=600)
 SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
 
 #regarding to volume level setting
@@ -70,25 +69,16 @@ VolumeLevel = tk.Scale(mainUI, from_=0, to=1,
                        font=("Helvetica", 12, "bold"), command=slider_vl,
                        orient="horizontal", digits=3, resolution=0.1)
 VolumeLevel.set(1)
-VolumeLevel.place(x=20, y=600)
+VolumeLevel.place(x=20, y=650)
 VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
-# Create a label for the default time text
-default_time_label = tk.Label(mainUI, text="Default: Singapore time", font=("Helvetica", 24, "bold"), bg="white")
-default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="w")
-
-# Create a label for displaying the current time
-current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
-current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
 
 def set_background():
     hour, minute, second = get_current_time("Asia/Singapore")
     if hour >= 6 and hour <= 18:
         background_label.config(image=background_photo)
-        print(hour)
     else:
         background_label.config(image=night_background_photo)
-        print(hour)
 
 # Function to update the Singapore time label
 def update_singapore_time():
@@ -123,8 +113,8 @@ def change_mode():
 
 # Create a button to toggle between modes
 mode_button = tk.Button(mainUI, text="Light/Dark", command=change_mode)
-mode_button.configure(width=25)
-mode_button.place(x=20, y=700)
+mode_button.configure(width=20)
+mode_button.place(x=20, y=500)
 
 
 # Function to show local
@@ -294,7 +284,7 @@ custom_alarms = []
 def open_custom_alarm_window():
     new_custom_alarm_window = tk.Toplevel(mainUI)
     new_custom_alarm_window.title("Set Custom Alarm")
-    new_custom_alarm_window.geometry("400x600")
+    new_custom_alarm_window.geometry("400x400")
 
     # Create labels for time, name, and timezone
     time_label = tk.Label(new_custom_alarm_window, text="Set Alarm Time:")
@@ -378,17 +368,10 @@ def open_custom_alarm_window():
 
 # Create a button to open the custom alarm window
 open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=open_custom_alarm_window)
-open_alarm_window_button.place(x=20, y=750)
-
-# Create a list to store custom alarms
-custom_alarms = []
+open_alarm_window_button.configure(width=20)
+open_alarm_window_button.place(x=20, y=550)
 
 
-# Function to open a new custom alarm window
-
-# Create a button to open the custom alarm window
-open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=open_custom_alarm_window)
-open_alarm_window_button.place(x=20, y=750)
 
 # Start the main Tkinter event loop
 mainUI.mainloop()

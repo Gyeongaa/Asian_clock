@@ -69,15 +69,12 @@ It presents hour information first then minute information"""
     return audio_names
 
 
-def second_audios(hr, m, s):
+def second_audios(hr, m):
     """the minute_audios function plays video when the second is not at 0.
 It presents hour information first then minute information, followed by the second information"""
 
     # add the file names of hour and minute
     audio_names = minute_audios(hr, m)
-    # add the file name of second number
-    audio_names.append(second_file(s))
-    # add the file name of word "seconds" in Thai
     audio_names.append("seconds.wav")
 
     return audio_names
