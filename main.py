@@ -13,6 +13,7 @@ from singapore import sg_clock
 from thai import th_clock
 from chinese import ch_clock
 from tkinter import OptionMenu, StringVar
+from settings import get_current_time
 
 # Create the main window
 mainUI = tk.Tk()
@@ -21,7 +22,6 @@ pygame.init()
 pygame.mixer.init()
 
 # Use a relative path to open the background image
-
 background_image = Image.open("images/Asia_Map_Resized.png")
 background_photo = ImageTk.PhotoImage(background_image)
 
@@ -29,9 +29,10 @@ background_photo = ImageTk.PhotoImage(background_image)
 night_background_image = Image.open("images/Asia_Map_Night_Resized.png")
 night_background_photo = ImageTk.PhotoImage(night_background_image)
 
-# Set the window size to match the background image size
+# Set the window size to match the background image size and user can't change window size
 mainUI.geometry(f"{background_image.width}x{background_image.height}")
 mainUI.resizable(False, False)
+
 # Create a Label to display the background image, using relwidth and relheight to fill the entire window
 background_label = tk.Label(mainUI, image=background_photo)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -50,31 +51,27 @@ def slider_sr(val):  # slider for speed rate
     new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
     SpeedRate.set(new_val)
 
-
 def slider_vl(val):  # slider for volume level
     new_val = min(volume_level, key=lambda x: abs(x - float(VolumeLevel.get())))
     VolumeLevel.set(new_val)
 
-
+#regarding to speed rate setting
 speed_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
-volume_level = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-
 SpeedRate = tk.Scale(mainUI, from_=0.25, to=2,
                      font=("Helvetica", 12, "bold"), command=slider_sr,
                      orient="horizontal", digits=3, resolution=0.25)
-SpeedRate.set(1)
+SpeedRate.set(1) #default value is 1
 SpeedRate.place(x=20, y=500)
 SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
 
+#regarding to volume level setting
+volume_level = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 VolumeLevel = tk.Scale(mainUI, from_=0, to=1,
                        font=("Helvetica", 12, "bold"), command=slider_vl,
                        orient="horizontal", digits=3, resolution=0.1)
-
 VolumeLevel.set(1)
 VolumeLevel.place(x=20, y=600)
 VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
-
-# ...
 
 # Create a label for the default time text
 default_time_label = tk.Label(mainUI, text="Default: Singapore time", font=("Helvetica", 24, "bold"), bg="white")
@@ -84,6 +81,14 @@ default_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 - 24, anchor="
 current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
 current_time_label.place(x=20, y=mainUI.winfo_screenheight() // 2 + 24, anchor="w")
 
+def set_background():
+    hour, minute, second = get_current_time("Asia/Singapore")
+    if hour >= 6 and hour <= 18:
+        background_label.config(image=background_photo)
+        print(hour)
+    else:
+        background_label.config(image=night_background_photo)
+        print(hour)
 
 # Function to update the Singapore time label
 def update_singapore_time():
@@ -92,7 +97,6 @@ def update_singapore_time():
     time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
     current_time_label.config(text=time_str)
     mainUI.after(1000, update_singapore_time)  # Update every second
-
 
 # Start updating the Singapore time label
 update_singapore_time()
@@ -114,8 +118,6 @@ def change_mode():
     else:
         # Switch back to Light Mode
         background_label.config(image=background_photo)
-        default_time_label.configure(bg='black')
-        current_time_label.configure(bg="black")
         current_mode = "Light Mode"
 
 
@@ -223,74 +225,27 @@ def button5_callback():
 
 
 # Create buttons for different countries
-button1 = tk.Button(
-    mainUI,
-    text="CHINA",
-    compound=tk.TOP,
-    command=lambda: button1_callback()
-)
-button2 = tk.Button(
-    mainUI,
-    text="JAPAN",
-    compound=tk.TOP,
-    command=lambda: button2_callback()
-)
-button3 = tk.Button(
-    mainUI,
-    text="KOREA",
-    compound=tk.TOP,
-    command=lambda: button3_callback()
-)
-button4 = tk.Button(
-    mainUI,
-    text="THAILAND",
-    compound=tk.TOP,
-    command=lambda: button4_callback()
-)
-button5 = tk.Button(
-    mainUI,
-    text="SINGAPORE",
-    compound=tk.TOP,
-    command=lambda: button5_callback()
-)
+button1 = tk.Button(mainUI, text="CHINA", compound=tk.TOP, command=lambda: button1_callback())
+button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback())
+button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback())
+button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button4_callback())
+button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button5_callback())
 
 buttons = [button1, button2, button3, button4, button5]
-# Place the buttons
-button1.pack(pady=10)
-button2.pack(pady=10)
-button3.pack(pady=10)
-button4.pack(pady=10)
-button5.pack(pady=10)
-
 
 # Function to update button positions based on window size
 def update_button_positions():
-    button1.place(
-        x=660,
-        y=345,
-    )
-    button2.place(
-        x=1020,
-        y=300,
-    )
-    button3.place(#korea
-        x=910,
-        y=300,
-    )
-    button4.place(
-        x=620,
-        y=540,
-    )
-    button5.place(
-        x=640 * mainUI.winfo_width() / background_image.width,
-        y=680 * mainUI.winfo_height() / background_image.height,
-    )
+    button1.place(x=660, y=345)
+    button2.place(x=1020, y=300)
+    button3.place(x=910, y=300)
+    button4.place(x=620, y=540)
+    button5.place(x=640, y=680)
 
 
 t1 = threading.Thread(target=update_singapore_time)
 t1.start()
 # Bind a function to the <Configure> event to update button positions
-mainUI.bind("<Configure>", lambda event: update_button_positions())
+mainUI.bind("<Configure>", lambda event: [update_button_positions(), set_background()])
 
 # Create a new window for setting custom alarms
 custom_alarm_window = tk.Toplevel(mainUI)
