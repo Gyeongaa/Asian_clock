@@ -26,7 +26,7 @@ background_image = Image.open("images/Asia_Map_Resized.png")
 background_photo = ImageTk.PhotoImage(background_image)
 
 # Import the night version background image
-night_background_image = Image.open("images/Asia_Map_Night_Updated.png")
+night_background_image = Image.open("images/Asia_Map_Night_Resized.png")
 night_background_photo = ImageTk.PhotoImage(night_background_image)
 
 # Set the window size to match the background image size
@@ -102,7 +102,7 @@ current_mode = "Light Mode"
 
 
 # Function to toggle between Light Mode and Dark Mode
-def toggle_mode():
+def change_mode():
     global current_mode
     if current_mode == "Light Mode":
         # Switch to Dark Mode
@@ -114,17 +114,18 @@ def toggle_mode():
     else:
         # Switch back to Light Mode
         background_label.config(image=background_photo)
-        default_time_label.config(fg="black")
-        current_time_label.config(fg="black")
+        default_time_label.configure(bg='black')
+        current_time_label.configure(bg="black")
         current_mode = "Light Mode"
 
 
 # Create a button to toggle between modes
-mode_button = tk.Button(mainUI, text="Toggle Mode", command=toggle_mode)
+mode_button = tk.Button(mainUI, text="Light/Dark", command=change_mode)
+mode_button.configure(width=25)
 mode_button.place(x=20, y=700)
 
 
-# Function to show local time
+# Function to show local
 def show_world_time(timezone_name: str):
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)

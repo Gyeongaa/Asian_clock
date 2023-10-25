@@ -28,15 +28,10 @@ def get_sec_filename(s: int):
 def sg_clock(speed_rate=1, volume_level=1):
     hour, minute, second = get_current_time("Asia/Singapore")
 
-    audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour)]
-
-    if minute == 0 and second == 0:
-        audio_names = ['Hello.wav', 'Its.wav', get_which_meridium(hour), get_hour_filename(hour), 'Oclock.wav']
-
     if minute != 0:
-        audio_names.append(get_minute_filename(minute))
+        audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), get_minute_filename(minute) ]
 
-    if second != 0:
-        audio_names.extend([get_sec_filename(second), get_which_meridium(hour)])
+    else:
+        audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), 'Oclock.wav']
 
     play_audio(audio_names, speed_rate, volume_level, 'EnglishAudios/')

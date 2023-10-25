@@ -90,10 +90,7 @@ def th_clock(speed_rate=1, volume_level=1):
 
     # to present Thai time depending whether the time is on the hour and on the minute
     if minute != 0:
-        if second == 0:
-            audio_names = minute_audios(hour, minute)
-        else:
-            audio_names = second_audios(hour, minute, second)
+        audio_names = second_audios(hour, minute)
     else:
         audio_names = hour_audios(hour)
 
