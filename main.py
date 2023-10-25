@@ -230,11 +230,13 @@ def china_audio(*args):
 # Create a variable to store the selected audio choice
 audio_choice = tk.StringVar()
 
+
 # Create a Combobox (dropdown) with audio choices
 button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
-button1["values"] = ("China Natural Chinese", "China Synthetic")
+button1["values"] = ("China Natural", "China Synthetic")
 button1.set("China Natural")
 button1.bind("<<ComboboxSelected>>", china_audio)
+button1.configure(width=10)
 
 button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback())
 button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback())
@@ -245,7 +247,7 @@ buttons = [button1, button2, button3, button4, button5]
 
 # Function to update button positions based on window size
 def update_button_positions():
-    button1.place(x=660, y=345)
+    button1.place(x=630, y=345)
     button2.place(x=1020, y=300)
     button3.place(x=910, y=300)
     button4.place(x=620, y=540)
