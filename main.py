@@ -231,7 +231,7 @@ def china_audio(*args):
 audio_choice = tk.StringVar()
 
 
-# Create a Combobox (dropdown) with audio choices
+# Create a Combobox (dropdown) with audio choices for Chinese
 button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
 button1["values"] = ("China Natural", "China Synthetic")
 button1.set("China Natural")
