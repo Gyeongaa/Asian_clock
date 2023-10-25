@@ -10,7 +10,7 @@ class Alarm:
         self.custom_alarms = []
         self.mainUI = mainUI
         self.name_entry = None
-        self.confirmation_label = None  # Define confirmation_label as a class attribute
+        self.confirmation_label = None
 
     def open_alarm_window(self):
         new_alarm_window = tk.Toplevel(self.mainUI)
@@ -67,7 +67,7 @@ class Alarm:
 
         # Convert to 24-hour format
         if ampm == "PM":
-            hour = hour % 12
+            hour = hour + 12
 
         local_timezone = pytz.timezone(alarm_timezone)
         current_time = datetime.now(local_timezone).replace(microsecond=0)
