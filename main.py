@@ -1,12 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import OptionMenu, StringVar
 from datetime import datetime
 import pytz
 import threading
 import pygame
-
 import time
-from tkinter import OptionMenu
 from PIL import Image, ImageTk
 from korean import kr_clock
 from Japanese import jp_clock
@@ -14,8 +13,8 @@ from singapore import sg_clock
 from thai import th_clock
 from chinese import ch_clock
 from ChineseNatural import ch_natural_clock
-from tkinter import OptionMenu, StringVar
 from settings import get_current_time
+from alarm import Alarm
 
 # Create the main window
 mainUI = tk.Tk()
@@ -74,7 +73,7 @@ VolumeLevel.set(1)
 VolumeLevel.place(x=20, y=650)
 VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
-
+#set background image following current time, this will be executed when mainroop starts
 def set_background():
     hour= get_current_time("Asia/Singapore")[0]
     if hour >= 6 and hour <= 18:
@@ -82,21 +81,21 @@ def set_background():
     else:
         background_label.config(image=night_background_photo)
 
+#Following user input, user can change background mode
 def change_background(mode):
-    if mode == "Light":
+    if mode == "Light Mode":
         background_label.config(image=background_photo)
-    elif mode == "Dark":
+    elif mode == "Dark Mode":
         background_label.config(image=night_background_photo)
 
-
 # Create a button to toggle between modes
-mode_choice = tk.StringVar()
-mode_combobox = ttk.Combobox(mainUI, textvariable=mode_choice)
-mode_combobox["values"] = ("Light", "Dark")
+bg_choice = tk.StringVar()
+mode_combobox = ttk.Combobox(mainUI, textvariable=bg_choice)
+mode_combobox["values"] = ("Light Mode", "Dark Mode")
 mode_combobox.set("Light")
-mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(mode_choice.get()))
+mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(bg_choice.get()))
 mode_combobox.configure(width=20)
-mode_combobox.place(x=20, y=500)
+mode_combobox.place(x=20, y=400)
 
 # Function to update the Singapore time label
 def update_singapore_time():
@@ -111,10 +110,9 @@ update_singapore_time()
 t1 = threading.Thread(target=update_singapore_time)
 t1.start()
 
-# Function to toggle between Light Mode and Dark Mode
 
-
-def show_world_time(timezone_name: str):
+#get world time
+def get_world_time(timezone_name: str):
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)
     time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
@@ -122,8 +120,7 @@ def show_world_time(timezone_name: str):
     return time_str
 
 def show_local_time(time_zone):
-    time_str = show_world_time(time_zone)
-
+    time_str = get_world_time(time_zone)
     # Create a new window to display local time
     local_time_window = tk.Toplevel(mainUI)
     local_time_window.title("Local Time")
@@ -133,7 +130,7 @@ def show_local_time(time_zone):
     time_label.config(text=time_str)
 
     def update_local_time():
-        time_str = show_world_time(time_zone)
+        time_str = get_world_time(time_zone)
         time_label.config(text=time_str)
         local_time_window.after(1000, update_local_time)
     update_local_time()
@@ -262,141 +259,13 @@ button5.place(x=640, y=680)
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: set_background())
 
-# Create a new window for setting custom alarms
-custom_alarm_window = tk.Toplevel(mainUI)
-custom_alarm_window.title("Set Custom Alarm")
-custom_alarm_window.withdraw()
 
-custom_alarm_window.geometry("400x600")
+alarm = Alarm(mainUI)
 
-# Create labels for time, name, and timezone
-time_label = tk.Label(custom_alarm_window, text="Set Alarm Time:")
-time_label.pack()
-hour_var = StringVar()
-minute_var = StringVar()
-ampm_var = StringVar()
-
-# Create OptionMenus for hour, minute, and AM/PM
-hour_menu = OptionMenu(custom_alarm_window, hour_var, *range(1, 13))
-minute_menu = OptionMenu(custom_alarm_window, minute_var, *range(0, 60))
-ampm_menu = OptionMenu(custom_alarm_window, ampm_var, "AM", "PM")
-
-hour_menu.pack()
-minute_menu.pack()
-ampm_menu.pack()
-
-# Create labels and entry widgets for name and timezone
-name_label = tk.Label(custom_alarm_window, text="Enter Alarm Name:")
-name_entry = tk.Entry(custom_alarm_window, font=("Helvetica", 12))
-if name_label == "":
-    name_entry = "Default"
-name_label.pack()
-name_entry.pack()
-
-timezone_label = tk.Label(custom_alarm_window, text="Select Timezone:")
-timezone_var = tk.StringVar()
-timezone_var.set("Asia/Singapore")  # 默认时区
-timezone_menu = tk.OptionMenu(custom_alarm_window, timezone_var, "Asia/Singapore", "Asia/Shanghai", "Asia/Tokyo",
-                              "Asia/Seoul", "Asia/Bangkok")
-timezone_menu.config(font=("Helvetica", 12))
-timezone_label.pack()
-timezone_menu.pack()
-
-# Function to open the custom alarm window
-custom_alarms = []
-
-
-def open_custom_alarm_window():
-    new_custom_alarm_window = tk.Toplevel(mainUI)
-    new_custom_alarm_window.title("Set Custom Alarm")
-    new_custom_alarm_window.geometry("400x400")
-
-    # Create labels for time, name, and timezone
-    time_label = tk.Label(new_custom_alarm_window, text="Set Alarm Time:")
-    time_label.pack()
-
-    hour_var = tk.StringVar()
-    minute_var = tk.StringVar()
-    ampm_var = tk.StringVar()
-
-    # Create OptionMenus for hour, minute, and AM/PM
-    hour_menu = tk.OptionMenu(new_custom_alarm_window, hour_var, *range(0, 12))
-    hour_menu.configure(width=50)
-    minute_menu = tk.OptionMenu(new_custom_alarm_window, minute_var, *range(0, 60))
-    minute_menu.config(width=50)
-    ampm_menu = tk.OptionMenu(new_custom_alarm_window, ampm_var, "AM", "PM")
-    ampm_menu.config(width=50)
-    hour_menu.pack()
-    minute_menu.pack()
-    ampm_menu.pack()
-
-    name_label = tk.Label(new_custom_alarm_window, text="Enter Alarm Name:")
-    name_entry = tk.Entry(new_custom_alarm_window, font=("Helvetica", 12))
-    name_label.pack()
-    name_entry.pack()
-
-    timezone_label = tk.Label(new_custom_alarm_window, text="Select Timezone:")
-    timezone_var = tk.StringVar()
-    timezone_var.set("Asia/Singapore")  # Default timezone
-    timezone_menu = tk.OptionMenu(new_custom_alarm_window, timezone_var, "Asia/Singapore", "Asia/Shanghai",
-                                  "Asia/Tokyo", "Asia/Seoul", "Asia/Bangkok")
-    timezone_menu.config(font=("Helvetica", 12))
-    timezone_label.pack()
-    timezone_menu.pack()
-
-    # Create a label to display the confirmation message
-    confirmation_label = tk.Label(new_custom_alarm_window, text="", font=("Helvetica", 14))
-    confirmation_label.pack()
-
-    # Function to set a custom alarm
-    def set_custom_alarm(custom_alarm_window):
-        hour = int(hour_var.get())
-        minute = int(minute_var.get())
-        ampm = ampm_var.get()
-        alarm_name = name_entry.get()
-        alarm_timezone = timezone_var.get()
-
-        # Convert to 24-hour format
-        if ampm == "PM":
-            hour += 12
-
-        local_timezone = pytz.timezone(alarm_timezone)
-        current_time = datetime.now(local_timezone).replace(microsecond=0)
-
-        alarm_time = current_time.replace(hour=hour, minute=minute, second=0)
-        time_difference = (alarm_time - current_time).total_seconds()
-
-        confirmation_text = f"Alarm ({alarm_name}): {alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
-        confirmation_label.config(text=confirmation_text)
-
-        # Schedule the alarm to trigger after the time difference elapses
-        mainUI.after(int(time_difference * 1000), lambda: trigger_alarm(alarm_name, custom_alarm_window))
-
-    # Function to trigger the alarm
-    def trigger_alarm(alarm_name, custom_alarm_window):
-        # Play the alarm sound (modify this line to use your own sound)
-        alarm_sound = pygame.mixer.Sound("alarm.wav")
-        alarm_sound.play()
-
-        # Close the custom alarm window after the alarm triggers
-        custom_alarm_window.destroy()
-
-    # Create a button to set the custom alarm
-    set_alarm_button = tk.Button(new_custom_alarm_window, text="Set Alarm",
-                                 command=lambda: set_custom_alarm(new_custom_alarm_window))
-    set_alarm_button.pack()
-
-    # Append the new custom alarm window to the list
-    custom_alarms.append(new_custom_alarm_window)
-
-
-
-# Create a button to open the custom alarm window
-open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=open_custom_alarm_window)
+# Create a button to open the custom alarm window using open_alarm_window
+open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
 open_alarm_window_button.configure(width=20)
 open_alarm_window_button.place(x=20, y=550)
-
-
 
 # Start the main Tkinter event loop
 mainUI.mainloop()
