@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from datetime import datetime
 import pytz
 import threading
@@ -213,9 +214,28 @@ def button5_callback():
     thread2.start()
     mainUI.after(8500, enable_buttons)
 
+# Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
+def china_audio(*args):
+    selected_audio = audio_choice.get()
+    if selected_audio == "China Natural":
+        # Play natural Chinese audio (replace with your actual audio file)
+        button6_callback()
+    elif selected_audio == "China Synthetic":
+        # Play synthetic Chinese audio (replace with your actual audio file)
+        button1_callback()
 
 # Create buttons for different countries
-button1 = tk.Button(mainUI, text="CHINA", compound=tk.TOP, command=lambda: button1_callback())
+
+# A combobox is created to choose synthetic or natural chinese voice for button China
+# Create a variable to store the selected audio choice
+audio_choice = tk.StringVar()
+
+# Create a Combobox (dropdown) with audio choices
+button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
+button1["values"] = ("China Natural Chinese", "China Synthetic")
+button1.set("China Natural")
+button1.bind("<<ComboboxSelected>>", china_audio)
+
 button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback())
 button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback())
 button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button4_callback())
