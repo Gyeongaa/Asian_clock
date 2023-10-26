@@ -37,5 +37,5 @@ def ch_natural_clock(speed_rate=1, volume_level=1):
     combined_audio = sum(audio_segments)
 
     # Play the concatenated audio
-    #play(combined_audio)
+    play(combined_audio)
 

@@ -171,9 +171,8 @@ def button_callback(country: str, type=None):
     if country == "CHINA":
         if type == 'gtts':
             t2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-        else:
+        elif type == 'natural':
             t2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-            print('test')
 
     elif country == "JAPAN":
         t2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
@@ -189,6 +188,7 @@ def button_callback(country: str, type=None):
 
     t1.start()
     t2.start()
+
     mainUI.after(8500, enable_buttons)
 
 
@@ -229,14 +229,11 @@ button3.place(x=870, y=300)
 button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
-
-
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: set_background())
 
 
 alarm = Alarm(mainUI)
-
 # Create a button to open the custom alarm window using open_alarm_window
 open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
 open_alarm_window_button.configure(width=20)
