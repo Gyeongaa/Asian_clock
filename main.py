@@ -240,19 +240,19 @@ button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
 button1["values"] = ("China Natural", "China Synthetic")
 button1.set("China Natural")
 button1.bind("<<ComboboxSelected>>", china_audio)
-button1.configure(width=10)
+button1.configure(width= 9)
 
-button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback())
-button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback())
-button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button4_callback())
-button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button5_callback())
+button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback(), width=9)
+button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback(), width=9)
+button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button4_callback(), width=9)
+button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button5_callback(), width=9)
 
 buttons = [button1, button2, button3, button4, button5]
 
 # Function to update button positions based on window size
 button1.place(x=630, y=345)
-button2.place(x=1020, y=300)
-button3.place(x=910, y=300)
+button2.place(x=1000, y=300)
+button3.place(x=870, y=300)
 button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
