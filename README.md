@@ -97,6 +97,23 @@ The whole sentence to express time in Thai:
 ตอนนี้เวลา (the current time is) + am/pm & hour (follow the rules above) + number + นาที (minute)
 
 ### Japanese
+In Japanese, time is typically expressed in a 12-hour clock format. The common format for time expression is as follows:
+
+"現在は"（It's now） + "午前" (AM) or "午後" (PM) + hour + "時" (hour) + minute + "分" (minute) + "です" (desu).
+
+Where:
+
+"午前" (AM) is used to indicate morning.
+"午後" (PM) is used to indicate afternoon.
+The hour is expressed in numeric form (e.g., 1, 2, ..., 12).
+"時" (hour) indicates the hour.
+Minutes are expressed numerically (e.g., 00, 01, ..., 58, 59).
+"です" (desu) serves as the ending particle for politeness.
+
+Here are some examples:
+
+9:30 AM - "現在は午前9時30分です" (It's now 9:30 AM).
+3:45 PM - "現在は午後3時45分です" (It's now 3:45 PM).
 
 ### Korean
 
