@@ -1,11 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import OptionMenu, StringVar
 from datetime import datetime
 import pytz
 import threading
 import pygame
-import time
 from PIL import Image, ImageTk
 from settings import get_current_time
 from alarm import Alarm
@@ -114,8 +112,6 @@ def update_singapore_time():
 
 # Start updating the Singapore time label
 update_singapore_time()
-t1 = threading.Thread(target=update_singapore_time)
-t1.start()
 
 
 #get world time

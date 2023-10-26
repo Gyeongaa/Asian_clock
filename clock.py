@@ -5,8 +5,6 @@ Except for chinese, all audio files are made by gtts.
 Also, for recorded chinese audio file, we use seperate audio library (pydub)
 """
 
-
-
 from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 from pydub import AudioSegment
 import audio_effects as ae
@@ -49,7 +47,7 @@ def kr_clock(speed_rate=1, volume_level = 1):
                        'ending_sentence.wav']
 
     play_audio(audio_names, speed_rate, volume_level, 'KoreanAudios/')
-    print('korea')
+
 
 def sg_clock(speed_rate=1, volume_level=1):
     hour, minute, second = get_current_time("Asia/Singapore")
