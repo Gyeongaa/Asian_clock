@@ -11,7 +11,7 @@ def sg_clock(speed_rate=1, volume_level=1):
     elif minute == 15:
         audio_names = ['Hello.wav','Its.wav',get_hour_filename(hour),'past.wav','quarter.wav',get_which_meridium(hour)]
     elif minute == 45:
-        audio_names = ['Hello.wav','Its.wav',str(hour+1),'to.wav','quarter.wav',get_which_meridium(hour)]
+        audio_names = ['Hello.wav','Its.wav',get_hour_filename(hour+1),'to.wav','quarter.wav',get_which_meridium(hour)]
     else:
         audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), get_minute_filename(minute), get_which_meridium(hour)]
 
