@@ -70,7 +70,31 @@ For example:
 10:45 PM - "It's 10:45 PM"
 
 ### Thai
+Thai people commonly express time using a 6-hour clock system, and this can be divided into four time periods, as well as four special expressions:
 
+*Four Time Periods:*
+
+1. Morning from 6 AM to 11 AM: The format is a number + โมง (o’clock) + ตอนเช้า (am for 6-11am). For example:
+   - 6 AM = 6 โมงเช้า
+
+2. Afternoon from 1 PM to 5 PM: The format is บ่าย (pm for 1-5pm) + a number + โมง (o’clock). For example:
+   - 1 PM = บ่ายโมง 
+   - 2 PM = บ่าย2โมง
+
+3. Evening from 6 PM to 11 PM: The format is a number + ทุ่ม (pm for 6-11pm). Fo example:
+   - 7 PM = 7 ทุ่ม 
+   - 8 PM = 8 ทุ่ม 
+
+4. Midnight from 1 AM to 5 AM: The format is ตี (am for 1-5 am) + a number. For example:
+   - 1 AM = ตี1 
+   - 2 AM = ตี2 
+
+5. Specific words for 12pm and 12 am.
+   - 12 am: เที่ยงคืน
+   - 12 pm: เที่ยง
+
+The whole sentence to express time in Thai:
+ตอนนี้เวลา (the current time is) + am/pm & hour (follow the rules above) + number + นาที (minute)
 
 ### Japanese
 
