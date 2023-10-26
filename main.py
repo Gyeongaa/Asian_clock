@@ -39,13 +39,15 @@ background_label = tk.Label(mainUI, image=background_photo)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Create a label for the default time text
-default_time_label = tk.Label(mainUI, text="Default: Singapore time",
-                              font=("Helvetica", 24, "bold"), bg="white")
-default_time_label.place(x=20, y=200, anchor="w")
+default_time_label = tk.Label(mainUI, text="Singapore time (Default)",
+                              font=("Helvetica", 24, "bold","italic"), bg="white")
+default_time_label.configure(width=20)
+default_time_label.place(x=500, y=50, anchor="w")
 
 # Create a label for displaying the current time
-current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24))
-current_time_label.place(x=20, y=235, anchor="w")
+current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24),bg="white")
+current_time_label.place(x=500, y=83, anchor="w")
+current_time_label.configure(width=20)
 
 def slider_sr(val):  # slider for speed rate
     new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
@@ -95,7 +97,7 @@ mode_combobox["values"] = ("Light Mode", "Dark Mode")
 mode_combobox.set("Light")
 mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(bg_choice.get()))
 mode_combobox.configure(width=20)
-mode_combobox.place(x=20, y=400)
+mode_combobox.place(x=20, y=540)
 
 # Function to update the Singapore time label
 def update_singapore_time():
@@ -265,7 +267,7 @@ alarm = Alarm(mainUI)
 # Create a button to open the custom alarm window using open_alarm_window
 open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
 open_alarm_window_button.configure(width=20)
-open_alarm_window_button.place(x=20, y=550)
+open_alarm_window_button.place(x=20, y=500)
 
 # Start the main Tkinter event loop
 mainUI.mainloop()
