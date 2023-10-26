@@ -1,7 +1,9 @@
 from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 from pydub import AudioSegment
+import audio_effects as ae
 from pydub.playback import play
 from pydub.utils import ratio_to_db
+
 
 
 def ch_natural_clock(speed_rate=1, volume_level=1):
@@ -23,9 +25,13 @@ def ch_natural_clock(speed_rate=1, volume_level=1):
     for wav_file_path in wav_file_paths:
         audio = AudioSegment.from_file(f"MandarinRecordings/{wav_file_path}")
 
-        # Adjust  speed rate
-        if speed_rate !=1:
+
+        # Adjust speed rate
+        if speed_rate > 1:
             audio = audio.speedup(playback_speed=speed_rate)
+        elif speed_rate <1:
+            audio = ae.speed_down(audio, speed_rate)
+
 
         # Adjust volume by multiplying by volume_level (percentage) using dB conversion
         db = ratio_to_db(volume_level)
@@ -38,4 +44,5 @@ def ch_natural_clock(speed_rate=1, volume_level=1):
 
     # Play the concatenated audio
     play(combined_audio)
+
 
