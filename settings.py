@@ -1,8 +1,9 @@
 """
-Contains functions common to all language logic files.
-Also contains vital code for audio input, concatenation, and output.
+Contains basic functions for all language clocks.
+Get current time, audio, sampling rate and hour, minute, seconds file name.
+Also contains vital code for concatenation, and play.
 
-Authors: Dragos Balan & Hubert Matuszewski
+Authors: Soogyeong Shin
 """
 import librosa
 import numpy as np

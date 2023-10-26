@@ -1,3 +1,9 @@
+"""
+This file contains alarm class
+Create alarm window, set and trigger alarm.
+User can choose the time zone for setting alarm.
+"""
+
 import tkinter as tk
 from tkinter import StringVar, OptionMenu
 import pytz

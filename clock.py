@@ -1,3 +1,12 @@
+"""
+This file contains 5 languages clock functions.
+There are chinese(recording, gtts version), japanese, korean, thai and english.
+Except for chinese, all audio files are made by gtts.
+Also, for recorded chinese audio file, we use seperate audio library (pydub)
+"""
+
+
+
 from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 from pydub import AudioSegment
 import audio_effects as ae
@@ -103,7 +112,6 @@ It presents hour information first then minute information"""
     # add the file name of word "minutes" in Thai
 
     return audio_names
-
 
 
 def th_clock(speed_rate=1, volume_level=1):
