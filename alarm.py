@@ -30,11 +30,11 @@ class Alarm:
         self.ampm_var = tk.StringVar()
 
         hour_menu = tk.OptionMenu(new_alarm_window, self.hour_var, *range(0, 12))
-        hour_menu.configure(width=20)
+        hour_menu.configure(width=5)
         minute_menu = tk.OptionMenu(new_alarm_window, self.minute_var, *range(0, 60))
-        minute_menu.config(width=20)
+        minute_menu.config(width=5)
         ampm_menu = tk.OptionMenu(new_alarm_window, self.ampm_var, "AM", "PM")
-        ampm_menu.config(width=20)
+        ampm_menu.config(width=2)
         hour_menu.pack()
         minute_menu.pack()
         ampm_menu.pack()
@@ -46,9 +46,9 @@ class Alarm:
 
         timezone_label = tk.Label(new_alarm_window, text="Select Timezone:")
         self.timezone_var = tk.StringVar()
-        self.timezone_var.set("Asia/Singapore")  # Default timezone
-        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Asia/Singapore", "Asia/Shanghai",
-                                      "Asia/Tokyo", "Asia/Seoul", "Asia/Bangkok")
+        self.timezone_var.set("Singapore")  # Default timezone
+        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore", "Shanghai",
+                                      "Tokyo", "Seoul", "Bangkok")
         timezone_menu.config(font=("Helvetica", 12))
         timezone_label.pack()
         timezone_menu.pack()
