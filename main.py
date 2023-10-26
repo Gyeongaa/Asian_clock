@@ -76,25 +76,35 @@ VolumeLevel.place(x=20, y=650)
 VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
 #set background image following current time, this will be executed when mainroop starts
+current_mode = ''
 def set_background():
+    global current_mode
     hour= get_current_time("Asia/Singapore")[0]
     if hour >= 6 and hour <= 18:
             background_label.config(image=background_photo)
+            current_mode = 'Light Mode'
     else:
         background_label.config(image=night_background_photo)
+        current_mode = 'Dark Mode'
 
 #Following user input, user can change background mode
+
 def change_background(mode):
+    global current_mode
     if mode == "Light Mode":
         background_label.config(image=background_photo)
+        current_mode = 'Light Mode'
+
     elif mode == "Dark Mode":
         background_label.config(image=night_background_photo)
+        current_mode = "Dark Mode"
 
-# Create a button to toggle between modes
+set_background()
 bg_choice = tk.StringVar()
 mode_combobox = ttk.Combobox(mainUI, textvariable=bg_choice)
 mode_combobox["values"] = ("Light Mode", "Dark Mode")
-mode_combobox.set("Light")
+mode_combobox.set(current_mode)
+
 mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(bg_choice.get()))
 mode_combobox.configure(width=20)
 mode_combobox.place(x=20, y=540)
