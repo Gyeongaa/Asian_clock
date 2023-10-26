@@ -116,7 +116,24 @@ Here are some examples:
 3:45 PM - "現在は午後3時45分です" (It's now 3:45 PM).
 
 ### Korean
+In South Korea, time is typically expressed using the 12-hour clock format. In the Korean language, the common way to express time is as follows:
 
+"지금은" (It's now) + "오전" (AM) or "오후" (PM) + the hour + "시" (hour) + the minute + "분" (minute) + "입니다" (is).
+
+Here's an explanation:
+
+"오전" (AM) is used to indicate morning or AM times.
+"오후" (PM) is used to indicate afternoon or PM times.
+The hour is represented using numerical digits (e.g., 1, 2, ..., 12).
+"시" (hour) indicates the hour.
+The minute is represented in numerical form (e.g., 00, 01, ..., 58, 59).
+"분" (minute) represents the minutes.
+"입니다" (is) is a polite ending term.
+
+Here are some examples:
+
+9:30 AM - "지금은 오전 9시 30분입니다" (It's now 9:30 AM).
+3:45 PM - "지금은 오후 3시 45분입니다" (It's now 3:45 PM).
 
 ## GDPR Compliance
 
