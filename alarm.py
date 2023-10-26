@@ -75,12 +75,16 @@ class Alarm:
         alarm_time = current_time.replace(hour=hour, minute=minute, second=0)
         time_difference = (alarm_time - current_time).total_seconds()
 
-        confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
-        self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
+        if time_difference < 0:
+            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!"
+            self.confirmation_label.config(text=confirmation_text)
+        else:
+            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+            self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
 
-        # Schedule the alarm to trigger after the time difference elapses
-        t = Timer(time_difference, self.trigger_alarm)
-        t.start()
+            # Schedule the alarm to trigger after the time difference elapses
+            t = Timer(time_difference, self.trigger_alarm)
+            t.start()
 
     def trigger_alarm(self):
         # Play the alarm sound (modify this line to use your own sound)
