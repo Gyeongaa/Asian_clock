@@ -62,11 +62,17 @@ In English, the time in 12-hour clock format is commonly expressed as:
 Here's a breakdown of the components:
 
 "Past" is used to indicate minutes that have passed beyond the hour.
+
 "To" is used to indicate minutes until the next hour.
+
 "A quarter" is used to indicate a 15-minute interval or a quarter of an hour.
+
 "AM" is used for times from midnight (00:00) until noon (12:00 PM).
+
 "PM" is used for times from noon (12:00 PM) until midnight (00:00 AM of the next day).
+
 The "hour" is the current hour represented in digits (e.g., 01, 02, ..., 12).
+
 The "minutes" are the current minutes represented in digits (e.g., 00, 01, ..., 58, 59).
 
 For example:
