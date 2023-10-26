@@ -11,7 +11,7 @@ To get started, follow the installation instructions below.
     Open your terminal or command prompt; change the current working directory to the location where you want the cloned directory; run ‘git clone https://github.com/Gyeongaa/Asian_clock.git’ to clone the project repository from GitHub to your local machine.
     Alternatively, you can download the project as a ZIP file by clicking the 'Code' button on the repository page and selecting 'Download ZIP.' Extract the ZIP archive to your desired installation location.
     Run ` pip install -r requirements.txt` to install the dependencies required.
-4. run the project
+4. Run the project
     After setting up the project and its dependencies, you can run the project. Refer to the project's README or documentation for detailed usage instructions.
 
 
