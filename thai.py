@@ -1,4 +1,4 @@
-from settings import play_audio, get_current_time
+from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 
 # define 3 functions to return the file name for the current hour, minute, second in Thai pronunciation.
 def hour_file(hr: int):

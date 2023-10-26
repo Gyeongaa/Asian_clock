@@ -1,28 +1,4 @@
-from settings import play_audio, get_current_time
-
-
-#These below function can be changed depends on the way you saved your file.
-
-def get_which_meridium(hr: int):
-    if hr> 12:
-        return 'PM.wav'
-    else:
-        return 'AM.wav'
-
-def get_hour_filename(hr: int):
-    if hr > 12:
-        hr = hr%12
-    path = 'hours/'
-    return path+str(hr) + 'h.wav'
-
-
-def get_minute_filename(m: int):
-    path = 'mins/'
-    return path + str(m) + 'm.wav'
-
-def get_sec_filename(s: int):
-    path = 'seconds/'
-    return path + str(s) + 's.wav'
+from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 
 def jp_clock(speed_rate=1, volume_level = 1):
     hour, minute, second = get_current_time("Asia/Tokyo")

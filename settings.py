@@ -31,6 +31,26 @@ def get_sr(filename: str, path: str):
     audio, sr = librosa.load(path + filename)
     return sr
 
+def get_which_meridium(hr: int):
+    if hr> 12:
+        return 'PM.wav'
+    else:
+        return 'AM.wav'
+
+def get_hour_filename(hr: int):
+    if hr > 12:
+        hr = hr%12
+    path = 'hours/'
+    return path+str(hr) + 'h.wav'
+
+def get_minute_filename(m: int):
+    path = 'mins/'
+    return path + str(m) + 'm.wav'
+
+def get_sec_filename(s: int):
+    path = 'seconds/'
+    return path + str(s) + 's.wav'
+
 
 # Determines if we return the equivalent of "past" or "to" in English
 #def with_or_without(m: int):
