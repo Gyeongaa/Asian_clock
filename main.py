@@ -19,7 +19,7 @@ from alarm import Alarm
 # Create the main window
 mainUI = tk.Tk()
 mainUI.title("Asian Time")
-pygame.init()
+#pygame.init()
 pygame.mixer.init()
 
 # Use a relative path to open the background image
