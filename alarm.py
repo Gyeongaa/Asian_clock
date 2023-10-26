@@ -70,27 +70,33 @@ class Alarm:
         ampm = self.ampm_var.get()
         alarm_name = self.name_entry.get()
         alarm_timezone = self.timezone_var.get()
-
-        # Convert to 24-hour format
-        if ampm == "PM":
-            hour = hour + 12
-
-        local_timezone = pytz.timezone(alarm_timezone)
-        current_time = datetime.now(local_timezone).replace(microsecond=0)
-
-        alarm_time = current_time.replace(hour=hour, minute=minute, second=0)
-        time_difference = (alarm_time - current_time).total_seconds()
-
-        if time_difference < 0:
-            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!"
+        try:
+            if alarm_name == '':
+                raise TypeError('You need to add an alarm name')
+        except TypeError as e:
+            confirmation_text = str(e)
             self.confirmation_label.config(text=confirmation_text)
         else:
-            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
-            self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
+        # Convert to 24-hour format
+            if ampm == "PM":
+                hour = hour + 12
 
-            # Schedule the alarm to trigger after the time difference elapses
-            t = Timer(time_difference, self.trigger_alarm)
-            t.start()
+            local_timezone = pytz.timezone(alarm_timezone)
+            current_time = datetime.now(local_timezone).replace(microsecond=0)
+
+            alarm_time = current_time.replace(hour=hour, minute=minute, second=0)
+            time_difference = (alarm_time - current_time).total_seconds()
+
+            if time_difference < 0:
+                confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!"
+                self.confirmation_label.config(text=confirmation_text)
+            else:
+                confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+                self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
+
+                # Schedule the alarm to trigger after the time difference elapses
+                t = Timer(time_difference, self.trigger_alarm)
+                t.start()
 
     def trigger_alarm(self):
         # Play the alarm sound (modify this line to use your own sound)
