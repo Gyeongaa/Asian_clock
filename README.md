@@ -6,7 +6,7 @@ This talking clock was developed as a group project for the 'Introduction to Voi
 ## Installation
 To get started, follow the installation instructions below.
 1. Python version
-    ensure you have Python 3.9 installed on your system. You can download new Python versions from here: https://www.python.org/downloads/
+    Ensure you have Python 3.9 installed on your system. You can download new Python versions from here: https://www.python.org/downloads/
 2. Clone the repository.
     Open your terminal or command prompt; change the current working directory to the location where you want the cloned directory; run ‘git clone https://github.com/Gyeongaa/Asian_clock.git’ to clone the project repository from GitHub to your local machine.
     Alternatively, you can download the project as a ZIP file by clicking the 'Code' button on the repository page and selecting 'Download ZIP.' Extract the ZIP archive to your desired installation location.
