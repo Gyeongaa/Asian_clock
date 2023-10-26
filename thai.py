@@ -43,7 +43,6 @@ It presents hour information first then minute information"""
 
     # add the file names of hour
     audio_names = hour_audios(hr)
-    print(audio_names)
     # add the file name of minute number
     audio_names += [get_minute_filename(m)]
     # add the file name of word "minutes" in Thai
@@ -61,7 +60,6 @@ def th_clock(speed_rate=1, volume_level=1):
         audio_names = hour_audios(hour)
     else:
         audio_names = minute_audios(hour, minute)
-        print(audio_names)
 
     play_audio(audio_names, speed_rate, volume_level, 'ThaiAudios/')
 

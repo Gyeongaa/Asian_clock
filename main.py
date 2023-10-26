@@ -148,96 +148,59 @@ def show_local_time(time_zone):
     update_local_time()
 
 
+capital_dict = {
+    "CHINA": "Asia/Shanghai",
+    "JAPAN": "Asia/Tokyo",
+    "KOREA": "Asia/Seoul",
+    "THAILAND": "Asia/Bangkok",
+    "SINGAPORE": "Asia/Singapore"}
+
+def disable_buttons():
+    for button in buttons:
+        button.config(state="disabled")
 
 def enable_buttons():
     # Enable buttons
     for button in buttons:
         button.config(state="active")
 
+def button_callback(country: str, type=None):
+    mainUI.after(500, disable_buttons)
+    t1 = threading.Thread(target=show_local_time, args=(capital_dict[country],))
 
-def button1_callback():
-    # Disable buttons
-    for button in buttons:
-        button.config(state="disabled")
+    if country == "CHINA":
+        if type == 'gtts':
+            t2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+        else:
+            t2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+            print('test')
 
-    # Start the show_world_time and ch_clock threads
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Shanghai",))
-    thread2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.daemon = True
-    thread2.daemon = True
-    thread1.start()
-    thread2.start()
+    elif country == "JAPAN":
+        t2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
 
-    # enable buttons
+    elif country == "KOREA":
+        t2 = threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+
+    elif country == "THAILAND":
+        t2 = threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+
+    elif country == "SINGAPORE":
+        t2 = threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+
+    t1.start()
+    t2.start()
     mainUI.after(8500, enable_buttons)
 
-
-def button2_callback():
-    for button in buttons:
-        button.config(state="disabled")
-
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Tokyo",))
-    thread2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.start()
-    thread2.start()
-    mainUI.after(8500, enable_buttons)
-
-
-def button3_callback():
-    for button in buttons:
-        button.config(state="disabled")
-
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Seoul",))
-    thread2 = threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.start()
-    thread2.start()
-    mainUI.after(8500, enable_buttons)
-
-
-def button4_callback():
-    # Disable buttons
-
-    for button in buttons:
-        button.config(state="disabled")
-
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Bangkok",))
-    thread2 = threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.start()
-    thread2.start()
-    mainUI.after(8500, enable_buttons)
-
-
-def button5_callback():
-    # Disable buttons
-    for button in buttons:
-        button.config(state="disabled")
-
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Singapore",))
-    thread2 = threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.start()
-    thread2.start()
-    mainUI.after(8500, enable_buttons)
-
-def button6_callback():
-    # Disable buttons
-    for button in buttons:
-        button.config(state="disabled")
-
-    thread1 = threading.Thread(target=show_local_time, args=("Asia/Shanghai",))
-    thread2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
-    thread1.start()
-    thread2.start()
-    mainUI.after(8500, enable_buttons)
 
 # Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
 def china_audio(*args):
     selected_audio = audio_choice.get()
     if selected_audio == "China Natural":
-        # Play natural Chinese audio (replace with your actual audio file)
-        button6_callback()
+        # Play natural Chinese audio (replnaturalace with your actual audio file)
+        button_callback("CHINA", 'natural')
     elif selected_audio == "China Synthetic":
         # Play synthetic Chinese audio (replace with your actual audio file)
-        button1_callback()
+        button_callback("CHINA", 'gtts')
 
 # Create buttons for different countries
 
@@ -249,13 +212,13 @@ audio_choice = tk.StringVar()
 button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
 button1["values"] = ("China Natural", "China Synthetic")
 button1.set("China Natural")
-button1.bind("<<ComboboxSelected>>", china_audio)
+button1.bind("<<ComboboxSelected>>",china_audio)
 button1.configure(width= 12)
 
-button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button2_callback(), width=9)
-button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button3_callback(), width=9)
-button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button4_callback(), width=9)
-button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button5_callback(), width=9)
+button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button_callback("JAPAN"), width=9)
+button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button_callback("KOREA"), width=9)
+button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button_callback("THAILAND"), width=9)
+button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button_callback("SINGAPORE"), width=9)
 
 buttons = [button1, button2, button3, button4, button5]
 
