@@ -7,10 +7,10 @@ This talking clock was developed as a group project for the 'Introduction to Voi
 To get started, follow the installation instructions below.
 1. Python version
     Ensure you have Python 3.9 installed on your system. You can download new Python versions from here: https://www.python.org/downloads/
-2. Clone the repository.
+2. Clone the repository
     Open your terminal or command prompt; change the current working directory to the location where you want the cloned directory; run ‘git clone https://github.com/Gyeongaa/Asian_clock.git’ to clone the project repository from GitHub to your local machine.
-    Alternatively, you can download the project as a ZIP file by clicking the 'Code' button on the repository page and selecting 'Download ZIP.' Extract the ZIP archive to your desired installation location.
-    Run ` pip install -r requirements.txt` to install the dependencies required.
+    Alternatively, you can download the project as a ZIP file by clicking the green 'Code' button at the top of the repository and selecting 'Download ZIP.' Extract the ZIP archive to your desired installation location.
+3. Run ` pip install -r requirements.txt` to install the dependencies required.    
 4. Run the project
     After setting up the project and its dependencies, you can run the project. Refer to the project's README or documentation for detailed usage instructions.
 
@@ -35,10 +35,42 @@ In the lower-left corner, there is a 'Set Custom Alarm' button, which allows use
 ## Linguistic rules for telling time
 
 ### Chinese
+In Chinese, the time is typically expressed in the 24-hour clock format or 12-hour clock format. Here's how time is commonly expressed in Chinese of 12-hour clock format:
+
+"现在是" (It's now) + "上午" (AM) or "下午" (PM) + hour + "点" (hour) + minute + "分" (minute)
+
+Where:
+
+上午 is used for times from midnight (00:00) until noon (12:00 PM).
+下午 is used for times from noon (12:00 PM) until midnight (00:00 AM, next day).
+hour is the current hour in digits (e.g., 01, 02, ..., 12, 13, ..., 23).
+minute is the current minute in digits (e.g., 00, 01, ..., 58, 59).
+
+For example:
+
+06:30 AM - 现在上午六点三十分 (It's now 06:30 AM).
+10:45 PM - 现在下午十点四十五分 (It's now 10:45 PM).
+
 
 ### English
+In English, the time in 12-hour clock format is commonly expressed as:
+
+"It's" + hour + ":" + minute + "AM" or "PM"
+
+Where:
+
+"AM" is used for times from midnight (00:00) until noon (12:00 PM).
+"PM" is used for times from noon (12:00 PM) until midnight (00:00 AM, next day).
+hour is the current hour in digits (e.g., 01, 02, ..., 12).
+minute is the current minute in digits (e.g., 00, 01, ..., 58, 59).
+
+For example:
+
+00:30 AM - "It's 12:30 AM"
+10:45 PM - "It's 10:45 PM"
 
 ### Thai
+
 
 ### Japanese
 
