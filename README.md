@@ -49,6 +49,7 @@ minute is the current minute in digits (e.g., 00, 01, ..., 58, 59).
 For example:
 
 06:30 AM - 现在上午六点三十分 (It's now 06:30 AM).
+
 10:45 PM - 现在下午十点四十五分 (It's now 10:45 PM).
 
 
@@ -67,6 +68,7 @@ minute is the current minute in digits (e.g., 00, 01, ..., 58, 59).
 For example:
 
 00:30 AM - "It's 12:30 AM"
+
 10:45 PM - "It's 10:45 PM"
 
 ### Thai
@@ -113,6 +115,7 @@ Minutes are expressed numerically (e.g., 00, 01, ..., 58, 59).
 Here are some examples:
 
 9:30 AM - "現在は午前9時30分です" (It's now 9:30 AM).
+
 3:45 PM - "現在は午後3時45分です" (It's now 3:45 PM).
 
 ### Korean
@@ -133,6 +136,7 @@ The minute is represented in numerical form (e.g., 00, 01, ..., 58, 59).
 Here are some examples:
 
 9:30 AM - "지금은 오전 9시 30분입니다" (It's now 9:30 AM).
+
 3:45 PM - "지금은 오후 3시 45분입니다" (It's now 3:45 PM).
 
 ## GDPR Compliance
