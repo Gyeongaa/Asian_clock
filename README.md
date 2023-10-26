@@ -10,8 +10,9 @@ To get started, follow the installation instructions below.
 2. Clone the repository
     Open your terminal or command prompt; change the current working directory to the location where you want the cloned directory; run ‘git clone https://github.com/Gyeongaa/Asian_clock.git’ to clone the project repository from GitHub to your local machine.
     Alternatively, you can download the project as a ZIP file by clicking the green 'Code' button at the top of the repository and selecting 'Download ZIP.' Extract the ZIP archive to your desired installation location.
-3. Run ` pip install -r requirements.txt` to install the dependencies required.    
-4. Run the project
+3. Run 'pip install audio_effects' 
+4. Run ' pip install -r requirements.txt' to install the dependencies required.    
+5. Run the project
     After setting up the project and its dependencies, you can run the project. Refer to the project's README or documentation for detailed usage instructions.
 
 
@@ -56,20 +57,27 @@ For example:
 ### English
 In English, the time in 12-hour clock format is commonly expressed as:
 
-"It's" + hour + ":" + minute + "AM" or "PM"
+"It's" + minutes/(a) quarter(s) + "past" "to"  + hour + (optional) "AM" or "PM"
 
-Where:
+Here's a breakdown of the components:
 
+"Past" is used to indicate minutes that have passed beyond the hour.
+"To" is used to indicate minutes until the next hour.
+"A quarter" is used to indicate a 15-minute interval or a quarter of an hour.
 "AM" is used for times from midnight (00:00) until noon (12:00 PM).
-"PM" is used for times from noon (12:00 PM) until midnight (00:00 AM, next day).
-hour is the current hour in digits (e.g., 01, 02, ..., 12).
-minute is the current minute in digits (e.g., 00, 01, ..., 58, 59).
+"PM" is used for times from noon (12:00 PM) until midnight (00:00 AM of the next day).
+The "hour" is the current hour represented in digits (e.g., 01, 02, ..., 12).
+The "minutes" are the current minutes represented in digits (e.g., 00, 01, ..., 58, 59).
 
 For example:
 
 00:30 AM - "It's 12:30 AM"
 
-10:45 PM - "It's 10:45 PM"
+10:40 PM - "It's 10:40 PM"
+
+03:15 AM - "It's a quarter past 3 AM"
+
+10:50 PM - "It's 10 minutes to 11 PM"
 
 ### Thai
 Thai people commonly express time using a 6-hour clock system, and this can be divided into four time periods, as well as four special expressions:
