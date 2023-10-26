@@ -69,7 +69,7 @@ class Alarm:
         minute = int(self.minute_var.get())
         ampm = self.ampm_var.get()
         alarm_name = self.name_entry.get()
-        alarm_timezone = self.timezone_var.get()
+        alarm_timezone ='Asia/'+self.timezone_var.get()
         try:
             if alarm_name == '':
                 raise TypeError('You need to add an alarm name')
