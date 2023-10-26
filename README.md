@@ -139,4 +139,5 @@ Here are some examples:
 The audio files used were generated using gTTS（[Google Text-to-Speech](https://gtts.readthedocs.io/en/latest/)） APIs. For Chinese, English, Thai, Japanne and Korean.
 
 The Chinese natural voice is based on recordings by a member of group.
-Here is the consent form and data processing record for the individual voice, so all the data we use complies with GDPR regulations.
+The consent form and data processing record for the individual voice are included in documentation.
+So all the data we use complies with GDPR regulations.
