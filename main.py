@@ -7,14 +7,9 @@ import threading
 import pygame
 import time
 from PIL import Image, ImageTk
-from korean import kr_clock
-from Japanese import jp_clock
-from singapore import sg_clock
-from thai import th_clock
-from chinese import ch_clock
-from ChineseNatural import ch_natural_clock
 from settings import get_current_time
 from alarm import Alarm
+from clock import *
 
 # Create the main window
 mainUI = tk.Tk()
