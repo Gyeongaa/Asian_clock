@@ -220,7 +220,7 @@ button3.place(x=870, y=300)
 button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
-# Function to stop audio playback when the window is closed
+# Function to stop audio playing when the window is closed
 def on_closing():
     stop_audio()
     mainUI.destroy()
