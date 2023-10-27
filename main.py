@@ -43,30 +43,30 @@ current_time_label.place(x=500, y=83, anchor="w")
 current_time_label.configure(width=20)
 
 def slider_sr(val):  # slider for speed rate
-    new_val = min(speed_rates, key=lambda x: abs(x - float(SpeedRate.get())))
-    SpeedRate.set(new_val)
+    new_val = min(speed_rates, key=lambda x: abs(x - float(speed_rate.get())))
+    speed_rate.set(new_val)
 
 def slider_vl(val):  # slider for volume level
-    new_val = min(volume_level, key=lambda x: abs(x - float(VolumeLevel.get())))
-    VolumeLevel.set(new_val)
+    new_val = min(volume_levels, key=lambda x: abs(x - float(volume_level.get())))
+    volume_level.set(new_val)
 
 #regarding to speed rate setting
 speed_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
-SpeedRate = tk.Scale(mainUI, from_=0.25, to=2,
+speed_rate = tk.Scale(mainUI, from_=0.25, to=2,
                      font=("Helvetica", 12, "bold"), command=slider_sr,
                      orient="horizontal", digits=3, resolution=0.25)
-SpeedRate.set(1) #default value is 1
-SpeedRate.place(x=20, y=600)
-SpeedRate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
+speed_rate.set(1) #default value is 1
+speed_rate.place(x=20, y=600)
+speed_rate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
 
 #regarding to volume level setting
-volume_level = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-VolumeLevel = tk.Scale(mainUI, from_=0, to=1,
+volume_levels = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+volume_level = tk.Scale(mainUI, from_=0, to=1,
                        font=("Helvetica", 12, "bold"), command=slider_vl,
                        orient="horizontal", digits=3, resolution=0.1)
-VolumeLevel.set(1)
-VolumeLevel.place(x=20, y=650)
-VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
+volume_level.set(1)
+volume_level.place(x=20, y=650)
+volume_level.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
 #set background image following current time, this will be executed when mainloop starts
 current_mode = ''
@@ -161,21 +161,21 @@ def button_callback(country: str, type=None):
 
     if country == "CHINA":
         if type == 'gtts':
-            t2 = threading.Thread(target=ch_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+            t2 = threading.Thread(target=ch_clock, args=(speed_rate.get(), volume_level.get()))
         elif type == 'natural':
-            t2 = threading.Thread(target=ch_natural_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+            t2 = threading.Thread(target=ch_natural_clock, args=(speed_rate.get(), volume_level.get()))
 
     elif country == "JAPAN":
-        t2 = threading.Thread(target=jp_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+        t2 = threading.Thread(target=jp_clock, args=(speed_rate.get(), volume_level.get()))
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=kr_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+        t2 = threading.Thread(target=kr_clock, args=(speed_rate.get(), volume_level.get()))
 
     elif country == "THAILAND":
-        t2 = threading.Thread(target=th_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+        t2 = threading.Thread(target=th_clock, args=(speed_rate.get(), volume_level.get()))
 
     elif country == "SINGAPORE":
-        t2 = threading.Thread(target=sg_clock, args=(SpeedRate.get(), VolumeLevel.get()))
+        t2 = threading.Thread(target=sg_clock, args=(speed_rate.get(), volume_level.get()))
 
     t1.start()
     t2.start()

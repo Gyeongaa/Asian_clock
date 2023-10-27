@@ -102,6 +102,8 @@ def play_audio(audio_names, speed_rate, volume_level, lang_path):
     except Exception as e:
         print("An error occurred:", e)
 
+# Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
+
 # stop playing audios
 def stop_audio():
     pygame.mixer.music.stop()
