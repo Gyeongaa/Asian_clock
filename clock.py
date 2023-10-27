@@ -58,10 +58,11 @@ class Clock:
     def ch_natural_clock(self):
         hour, minute, second = get_current_time("Asia/Shanghai")
         audio_names = self.get_ch_audio_names(hour, minute, second)
-
         # Generate file paths for all the audios involved
         wav_file_paths = audio_names
 
+        #Since sound was recorded at a lower level than others, adjust the volume level.
+        self.volume_level *=10
         # Define a list to store the audio segments
         audio_segments = []
         # Load and append the WAV files to the audio_segments list
@@ -73,7 +74,6 @@ class Clock:
                 audio = audio.speedup(playback_speed=self.speed_rate)
             elif self.speed_rate < 1:
                 audio = ae.speed_down(audio, self.speed_rate)
-
             # Adjust volume by multiplying by volume_level (percentage) using dB conversion
             db = ratio_to_db(self.volume_level)
             audio = audio.apply_gain(db)

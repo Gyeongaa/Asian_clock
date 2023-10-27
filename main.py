@@ -183,7 +183,6 @@ def button_callback(country: str, type=None):
 
     t1.start()
     t2.start()
-
     mainUI.after(8500, enable_buttons)
 
 
