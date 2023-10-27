@@ -34,6 +34,8 @@ class Clock:
 
     def get_ch_audio_file_name(self, hour, minute, second):
         #It has same function as get_audio_file_name() but it is made for only chinese language(natural/gtts type)
+        #Returns audio_names as list type
+
         if minute != 0:
             audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour),
                            get_minute_filename(minute)]

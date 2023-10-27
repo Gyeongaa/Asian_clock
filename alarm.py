@@ -5,7 +5,6 @@ User can choose the time zone for setting alarm.
 """
 
 import tkinter as tk
-from tkinter import StringVar, OptionMenu
 import pytz
 from datetime import datetime
 import pygame
