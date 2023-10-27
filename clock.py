@@ -11,154 +11,155 @@ import audio_effects as ae
 from pydub.playback import play
 from pydub.utils import ratio_to_db
 
+class Clock:
+    def __init__(self, speed_rate=1, volume_level=1):
+        self.speed_rate = speed_rate
+        self.volume_level = volume_level
 
-def ch_clock(speed_rate=1, volume_level=1):
-    hour, minute, second = get_current_time("Asia/Shanghai")
+    def get_audio_file_names(self, hour, minute, second):
+        """
+        This function is made to improve code reusability since Japanese and Korean have same grammar.
+        They have "S + O + V" grammar format, while English has "S + V + O" sequence.
+        Therefore, it must be at the end to finish the sentence
+        Return:
+            audio_names 'list' : return audio file name as list type
+        """
+        if minute != 0:
+            audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
+                           get_minute_filename(minute), 'ending_sentence.wav']
+        else:
+            audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
+                           'ending_sentence.wav']
+        return audio_names
 
-    if minute != 0:
-        audio_names = ['hello.wav','current_time.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       get_minute_filename(minute)]
-    else:
-        audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour)]
+    def get_ch_audio_file_name(self, hour, minute, second):
+        #It has same function as get_audio_file_name() but it is made for only chinese language(natural/gtts type)
+        if minute != 0:
+            audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour),
+                           get_minute_filename(minute)]
+        else:
+            audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour)]
 
-    play_audio(audio_names, speed_rate, volume_level, 'MandarinAudios/')
+        return audio_names
+    def ch_clock(self):
+        hour, minute, second = get_current_time("Asia/Shanghai")
+        audio_names = self.get_ch_audio_file_name(hour, minute, second)
+        play_audio(audio_names, self.speed_rate, self.volume_level, 'MandarinAudios/')
 
+    def ch_natural_clock(self):
+        hour, minute, second = get_current_time("Asia/Shanghai")
+        audio_names = self.get_ch_audio_file_name(hour, minute, second)
 
-def jp_clock(speed_rate=1, volume_level = 1):
-    hour, minute, second = get_current_time("Asia/Tokyo")
+        # Generate file paths for all the audios involved
+        wav_file_paths = audio_names
 
-    if minute != 0:
-        audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       get_minute_filename(minute), 'ending_sentence.wav']
-    else:
-        audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       'ending_sentence.wav']
+        # Define a list to store the audio segments
+        audio_segments = []
+        # Load and append the WAV files to the audio_segments list
+        for wav_file_path in wav_file_paths:
+            audio = AudioSegment.from_file(f"MandarinRecordings/{wav_file_path}")
 
-    play_audio(audio_names, speed_rate, volume_level, 'JapaneseAudios/')
+            # Adjust speed rate
+            if self.speed_rate > 1:
+                audio = audio.speedup(playback_speed=self.speed_rate)
+            elif self.speed_rate < 1:
+                audio = ae.speed_down(audio, self.speed_rate)
 
-def kr_clock(speed_rate=1, volume_level = 1):
-    hour, minute, second = get_current_time("Asia/Seoul")
+            # Adjust volume by multiplying by volume_level (percentage) using dB conversion
+            db = ratio_to_db(self.volume_level)
+            audio = audio.apply_gain(db)
+            audio_segments.append(audio)
 
-    if minute!= 0:
-        audio_names = ['Hello.wav','current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       get_minute_filename(minute), 'ending_sentence.wav']
-    else:
-        audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       'ending_sentence.wav']
+        # Concatenate the audio segments
+        combined_audio = sum(audio_segments)
 
-    play_audio(audio_names, speed_rate, volume_level, 'KoreanAudios/')
+        # Play the concatenated audio
+        play(combined_audio)
 
+    def jp_clock(self):
+        hour, minute, second = get_current_time("Asia/Tokyo")
+        audio_names = self.get_audio_file_names(hour, minute, second)
+        play_audio(audio_names, self.speed_rate, self.volume_level, 'JapaneseAudios/')
 
-def sg_clock(speed_rate=1, volume_level=1):
-    hour, minute, second = get_current_time("Asia/Singapore")
-    # Check if it's an even hour
-    if minute == 0:
-        audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), 'Oclock.wav', get_which_meridium(hour)]
-    elif minute == 30:
-        audio_names = ['Hello.wav','Its.wav', 'half.wav','past.wav',get_hour_filename(hour), get_which_meridium(hour)]
-    elif minute == 15:
-        audio_names = ['Hello.wav','Its.wav','quarter.wav','past.wav',get_hour_filename(hour),get_which_meridium(hour)]
-    elif minute == 45:
-        audio_names = ['Hello.wav','Its.wav','quarter.wav','to.wav',get_hour_filename(hour+1),get_which_meridium(hour)]
-    else:
-        audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), get_minute_filename(minute), get_which_meridium(hour)]
+    def kr_clock(self):
+        hour, minute, second = get_current_time("Asia/Seoul")
+        audio_names = self.get_audio_file_names(hour, minute, second)
+        play_audio(audio_names, self.speed_rate, self.volume_level, 'KoreanAudios/')
 
-    play_audio(audio_names, speed_rate, volume_level, 'EnglishAudios/')
+    def sg_clock(self):
+        hour, minute, second = get_current_time("Asia/Singapore")
+        # Check if it's an even hour
+        if minute == 0:
+            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), 'Oclock.wav', get_which_meridium(hour)]
+        elif minute == 30:
+            audio_names = ['Hello.wav', 'Its.wav', 'half.wav', 'past.wav', get_hour_filename(hour),
+                           get_which_meridium(hour)]
+        elif minute == 15:
+            audio_names = ['Hello.wav', 'Its.wav', 'quarter.wav', 'past.wav', get_hour_filename(hour),
+                           get_which_meridium(hour)]
+        elif minute == 45:
+            audio_names = ['Hello.wav', 'Its.wav', 'quarter.wav', 'to.wav', get_hour_filename(hour + 1),
+                           get_which_meridium(hour)]
+        else:
+            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), get_minute_filename(minute),
+                           get_which_meridium(hour)]
 
+        play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
 
-def hour_audios(hr):
-    """The hour_audios function plays audio when it's on the hour.
-    The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs."""
+    def hour_audios(hr):
+        """The hour_audios function plays audio when it's on the hour.
+        The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs."""
 
-    # Initialize the list of audio names
-    audio_names = ["hello.wav", "the current time is.wav"]
+        # Initialize the list of audio names
+        audio_names = ["hello.wav", "the current time is.wav"]
 
-    if hr <= 5 and hr >= 1:
-        # When it's 1-5am, the format is "am" (for 1-5) + the number of the hour
-        audio_names += ["am_1_5.wav", get_hour_filename(hr)]
+        if hr <= 5 and hr >= 1:
+            # When it's 1-5am, the format is "am" (for 1-5) + the number of the hour
+            audio_names += ["am_1_5.wav", get_hour_filename(hr)]
 
-    elif hr <= 11 and hr >= 6:
-        # When it's 6-11am, the format is the number of the hour + "o'clock" in Thai + "am" (for 6-11)
-        audio_names += [get_hour_filename(hr), "o'clock.wav", "am_6_11.wav"]
+        elif hr <= 11 and hr >= 6:
+            # When it's 6-11am, the format is the number of the hour + "o'clock" in Thai + "am" (for 6-11)
+            audio_names += [get_hour_filename(hr), "o'clock.wav", "am_6_11.wav"]
 
-    elif hr == 12:
-        # A specific word for 12pm
-        audio_names += ["midday.wav"]
+        elif hr == 12:
+            # A specific word for 12pm
+            audio_names += ["midday.wav"]
 
-    elif hr <= 17 and hr >= 13:
-        # When it's 1-5pm, the format is "pm" (for 1-5) + the number of the hour + "o'clock" in Thai
-        audio_names += ["pm_1_5.wav", get_hour_filename(hr), "o'clock.wav"]
+        elif hr <= 17 and hr >= 13:
+            # When it's 1-5pm, the format is "pm" (for 1-5) + the number of the hour + "o'clock" in Thai
+            audio_names += ["pm_1_5.wav", get_hour_filename(hr), "o'clock.wav"]
 
-    elif hr <= 23 and hr >= 18:
-        # When it's 6-11pm, the format is the number of the hour + "pm" (for 6-11)
-        audio_names += [get_hour_filename(hr), "pm_6_11.wav"]
+        elif hr <= 23 and hr >= 18:
+            # When it's 6-11pm, the format is the number of the hour + "pm" (for 6-11)
+            audio_names += [get_hour_filename(hr), "pm_6_11.wav"]
 
-    elif hr == 0:
-        # A specific word for 12am
-        audio_names += ["midnight.wav"]
-    return audio_names
+        elif hr == 0:
+            # A specific word for 12am
+            audio_names += ["midnight.wav"]
+        return audio_names
 
+    def minute_audios(hr, m):
+        """the minute_audios function plays video when the minute is not at 0.
+    It presents hour information first then minute information"""
 
-def minute_audios(hr, m):
-    """the minute_audios function plays video when the minute is not at 0.
-It presents hour information first then minute information"""
+        # add the file names of hour
+        audio_names = Clock.hour_audios(hr)
+        # add the file name of minute number
+        audio_names += [get_minute_filename(m)]
+        # add the file name of word "minutes" in Thai
 
-    # add the file names of hour
-    audio_names = hour_audios(hr)
-    # add the file name of minute number
-    audio_names += [get_minute_filename(m)]
-    # add the file name of word "minutes" in Thai
+        return audio_names
 
-    return audio_names
+    def th_clock(self):
+        """this function plays video according to present
+        the current time in Thaiand in Thai in complete sentences."""
 
+        hour, minute, second = get_current_time("Asia/Bangkok")
 
-def th_clock(speed_rate=1, volume_level=1):
-    """this function plays video according to present the current time in Thaiand in Thai in complete sentences."""
+        if minute == 0:
+            audio_names = Clock.hour_audios(hour)
+        else:
+            audio_names = Clock.minute_audios(hour, minute)
 
-    hour, minute, second = get_current_time("Asia/Bangkok")
+        play_audio(audio_names, self.speed_rate, self.volume_level, 'ThaiAudios/')
 
-    if minute == 0:
-        audio_names = hour_audios(hour)
-    else:
-        audio_names = minute_audios(hour, minute)
-
-    play_audio(audio_names, speed_rate, volume_level, 'ThaiAudios/')
-
-def ch_natural_clock(speed_rate=1, volume_level=1):
-    hour, minute, second = get_current_time("Asia/Shanghai")
-
-    if minute != 0:
-        audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour),
-                       get_minute_filename(minute)]
-    else:
-        audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour)]
-
-    # Generate file paths for all the audios involved
-    wav_file_paths = audio_names
-
-    # Define a list to store the audio segments
-    audio_segments = []
-
-    # Load and append the WAV files to the audio_segments list
-    for wav_file_path in wav_file_paths:
-        audio = AudioSegment.from_file(f"MandarinRecordings/{wav_file_path}")
-
-
-        # Adjust speed rate
-        if speed_rate > 1:
-            audio = audio.speedup(playback_speed=speed_rate)
-        elif speed_rate <1:
-            audio = ae.speed_down(audio, speed_rate)
-
-
-        # Adjust volume by multiplying by volume_level (percentage) using dB conversion
-        db = ratio_to_db(volume_level)
-        audio = audio.apply_gain(db)
-
-        audio_segments.append(audio)
-
-    # Concatenate the audio segments
-    combined_audio = sum(audio_segments)
-
-    # Play the concatenated audio
-    play(combined_audio)

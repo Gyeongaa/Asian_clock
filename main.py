@@ -7,7 +7,7 @@ import pygame
 from PIL import Image, ImageTk
 from audio_setting import get_current_time, stop_audio
 from alarm import Alarm
-from clock import *
+from clock import Clock
 
 # Create the main window
 mainUI = tk.Tk()
@@ -159,30 +159,27 @@ def enable_buttons():
 def button_callback(country: str, type=None):
     mainUI.after(500, disable_buttons)
     t1 = threading.Thread(target=show_local_time, args=(capital_dict[country],))
-
+    clock = Clock(speed_rate.get(), volume_level.get())
     if country == "CHINA":
         if type == 'gtts':
-            t2 = threading.Thread(target=ch_clock,
-                                  args=(speed_rate.get(), volume_level.get()))
+            t2 = threading.Thread(target=clock.ch_clock)
+
         elif type == 'natural':
-            t2 = threading.Thread(target=ch_natural_clock,
-                                  args=(speed_rate.get(), volume_level.get()))
+            t2 = threading.Thread(target=clock.ch_natural_clock)
 
     elif country == "JAPAN":
-        t2 = threading.Thread(target=jp_clock,
-                              args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=clock.jp_clock)
+
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=kr_clock,
-                              args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=clock.kr_clock)
 
     elif country == "THAILAND":
-        t2 = threading.Thread(target=th_clock,
-                              args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=clock.th_clock)
 
     elif country == "SINGAPORE":
-        t2 = threading.Thread(target=sg_clock,
-                              args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=clock.sg_clock)
+
 
     t1.start()
     t2.start()
@@ -200,19 +197,19 @@ def china_audio(*args):
         # Play synthetic Chinese audio (replace with your actual audio file)
         button_callback("CHINA", 'gtts')
 
-# Create buttons for different countries
 
-# A combobox is created to choose synthetic or natural chinese voice for button China
 # Create a variable to store the selected audio choice
 audio_choice = tk.StringVar()
 
 # Create a Combobox (dropdown) with audio choices for Chinese
+# A combobox is created to choose synthetic or natural chinese voice for button China
 button1 = ttk.Combobox(mainUI, textvariable=audio_choice)
 button1["values"] = ("China Natural", "China Synthetic")
 button1.set("China Natural")
 button1.bind("<<ComboboxSelected>>",china_audio)
 button1.configure(width= 12)
 
+# Create buttons for different countries
 button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button_callback("JAPAN"), width=9)
 button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button_callback("KOREA"), width=9)
 button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button_callback("THAILAND"), width=9)
@@ -229,6 +226,7 @@ button5.place(x=640, y=680)
 
 # Function to stop audio playing when the window is closed
 def on_closing():
+    #pygame.mixer.init()
     stop_audio()
     mainUI.destroy()
 
