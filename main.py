@@ -5,7 +5,7 @@ import pytz
 import threading
 import pygame
 from PIL import Image, ImageTk
-from settings import get_current_time
+from settings import get_current_time, stop_audio
 from alarm import Alarm
 from clock import *
 
@@ -68,14 +68,14 @@ VolumeLevel.set(1)
 VolumeLevel.place(x=20, y=650)
 VolumeLevel.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
 
-#set background image following current time, this will be executed when mainroop starts
+#set background image following current time, this will be executed when mainloop starts
 current_mode = ''
 def set_background():
     global current_mode
     hour= get_current_time("Asia/Singapore")[0]
     if hour >= 6 and hour <= 18:
-            background_label.config(image=background_photo)
-            current_mode = 'Light Mode'
+        background_label.config(image=background_photo)
+        current_mode = 'Light Mode'
     else:
         background_label.config(image=night_background_photo)
         current_mode = 'Dark Mode'
@@ -220,15 +220,22 @@ button3.place(x=870, y=300)
 button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
+# Function to stop audio playback when the window is closed
+def on_closing():
+    stop_audio()
+    mainUI.destroy()
+
 # Bind a function to the <Configure> event to update button positions
 mainUI.bind("<Configure>", lambda event: set_background())
-
 
 alarm = Alarm(mainUI)
 # Create a button to open the custom alarm window using open_alarm_window
 open_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
 open_alarm_window_button.configure(width=20)
 open_alarm_window_button.place(x=20, y=500)
+
+# Bind the closing event to the on_closing function: when closing window, stop music
+mainUI.protocol("WM_DELETE_WINDOW", lambda: on_closing())
 
 # Start the main Tkinter event loop
 mainUI.mainloop()
