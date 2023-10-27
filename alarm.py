@@ -16,7 +16,7 @@ class Alarm:
     This class serves as alarm function.
 
     Methods:
-        open_alarm_window(): Create alarm window following user input(press alarm button in main ui).
+        create_alarm_window(): Create alarm window following user input(press alarm button in main ui).
         set_custom_alarm() : Set custom alarm. It has hour, minute, time zone variables.
         trigger_alarm() : Play alarm sound on the time user set.
     """
@@ -26,7 +26,7 @@ class Alarm:
         self.name_entry = None
         self.confirmation_label = None
 
-    def open_alarm_window(self):
+    def create_alarm_window(self):
         new_alarm_window = tk.Toplevel(self.mainUI)
         new_alarm_window.title("Set Custom Alarm")
         new_alarm_window.geometry("400x400")

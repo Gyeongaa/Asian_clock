@@ -1,10 +1,11 @@
 """
-Contains basic functions for all language clocks.
-Get current time, audio, sampling rate and hour, minute, seconds file name.
+This file contains basic functions for audio processing.
+It covers getting current time, audio, sampling rate and hour, minute, seconds file name etc.
 Also contains vital code for concatenation, and play.
 
 Authors: Soogyeong Shin
 """
+
 import librosa
 import numpy as np
 import pygame
@@ -13,7 +14,17 @@ import time
 import pytz
 from datetime import datetime
 
+
 def get_current_time(timezone_name):
+    """
+    Get current time based on the time zone that user selected
+        Args:
+            local_time_zone : get location
+            current_time 'datetime' : get current local time
+            time_str 'str' :
+        Retruns:
+            splited time 'int' : hour, minute, seconds
+    """
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)
     time_str = current_time.strftime("%H:%M:%S")
@@ -21,18 +32,32 @@ def get_current_time(timezone_name):
     return int(split_time[0]), int(split_time[1]), int(split_time[2])
 
 
-# Function used for reading the audio
+
 def get_audio(filename: str, path: str):
+    """
+    Function used for reading the audio
+    Args:
+        audio 'ndarray' : readed audio file
+        sr 'float' : sampling rate
+    Return:
+        audio file
+    """
     audio, sr = librosa.load(path + filename, sr=None)
     return audio
 
 
-# Returns the sample rate of the audio file
+# Returns the sampling rate of the audio file
 def get_sr(filename: str, path: str):
+
     audio, sr = librosa.load(path + filename)
     return sr
 
 def get_which_meridium(hr: int):
+    """
+    Get meridium ("AM", "PM") by getting current hour value
+    Return:
+        meridium audio file name 'str' : 'PM.wav' or 'AM.wav'
+    """
     if hr> 12:
         return 'PM.wav'
     else:
