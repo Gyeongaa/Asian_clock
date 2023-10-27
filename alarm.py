@@ -12,6 +12,14 @@ import pygame
 from threading import Timer
 
 class Alarm:
+    """
+    This class serves as alarm function.
+
+    Methods:
+        open_alarm_window(): Create alarm window following user input(press alarm button in main ui).
+        set_custom_alarm() : Set custom alarm. It has hour, minute, time zone variables.
+        trigger_alarm() : Play alarm sound on the time user set.
+    """
     def __init__(self, mainUI):
         self.custom_alarms = []
         self.mainUI = mainUI
