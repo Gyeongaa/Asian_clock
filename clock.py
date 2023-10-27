@@ -108,7 +108,7 @@ class Clock:
 
         play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
 
-    def hour_audios(hr):
+    def hour_audios(self, hr):
         """The hour_audios function plays audio when it's on the hour.
         The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs."""
 
@@ -140,12 +140,12 @@ class Clock:
             audio_names += ["midnight.wav"]
         return audio_names
 
-    def minute_audios(hr, m):
+    def minute_audios(self, hr, m):
         """the minute_audios function plays video when the minute is not at 0.
     It presents hour information first then minute information"""
 
         # add the file names of hour
-        audio_names = Clock.hour_audios(hr)
+        audio_names = self.hour_audios(hr)
         # add the file name of minute number
         audio_names += [get_minute_filename(m)]
         # add the file name of word "minutes" in Thai
@@ -159,9 +159,9 @@ class Clock:
         hour, minute, second = get_current_time("Asia/Bangkok")
 
         if minute == 0:
-            audio_names = Clock.hour_audios(hour)
+            audio_names = self.hour_audios(hour)
         else:
-            audio_names = Clock.minute_audios(hour, minute)
+            audio_names = self.minute_audios(hour, minute)
 
         play_audio(audio_names, self.speed_rate, self.volume_level, 'ThaiAudios/')
 
