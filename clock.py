@@ -16,7 +16,7 @@ class Clock:
         self.speed_rate = speed_rate
         self.volume_level = volume_level
 
-    def get_audio_file_names(self, hour, minute, second):
+    def get_audio_names(self, hour, minute, second):
         """
         This function is made to improve code reusability since Japanese and Korean have same grammar.
         They have "S + O + V" grammar format, while English has "S + V + O" sequence.
@@ -32,8 +32,8 @@ class Clock:
                            'ending_sentence.wav']
         return audio_names
 
-    def get_ch_audio_file_name(self, hour, minute, second):
-        #It has same function as get_audio_file_name() but it is made for only chinese language(natural/gtts type)
+    def get_ch_audio_names(self, hour, minute, second):
+        #It has same function as get_audio_name() but it is made for only chinese language(natural/gtts type)
         #Returns audio_names as list type
 
         if minute != 0:
@@ -45,12 +45,12 @@ class Clock:
         return audio_names
     def ch_clock(self):
         hour, minute, second = get_current_time("Asia/Shanghai")
-        audio_names = self.get_ch_audio_file_name(hour, minute, second)
+        audio_names = self.get_ch_audio_names(hour, minute, second)
         play_audio(audio_names, self.speed_rate, self.volume_level, 'MandarinAudios/')
 
     def ch_natural_clock(self):
         hour, minute, second = get_current_time("Asia/Shanghai")
-        audio_names = self.get_ch_audio_file_name(hour, minute, second)
+        audio_names = self.get_ch_audio_names(hour, minute, second)
 
         # Generate file paths for all the audios involved
         wav_file_paths = audio_names
@@ -80,12 +80,12 @@ class Clock:
 
     def jp_clock(self):
         hour, minute, second = get_current_time("Asia/Tokyo")
-        audio_names = self.get_audio_file_names(hour, minute, second)
+        audio_names = self.get_audio_names(hour, minute, second)
         play_audio(audio_names, self.speed_rate, self.volume_level, 'JapaneseAudios/')
 
     def kr_clock(self):
         hour, minute, second = get_current_time("Asia/Seoul")
-        audio_names = self.get_audio_file_names(hour, minute, second)
+        audio_names = self.get_audio_names(hour, minute, second)
         play_audio(audio_names, self.speed_rate, self.volume_level, 'KoreanAudios/')
 
     def sg_clock(self):
@@ -108,8 +108,9 @@ class Clock:
 
         play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
 
-    def hour_audios(self, hr):
-        """The hour_audios function plays audio when it's on the hour.
+    def get_th_audio_names(self, hr, m):
+        """This function is made to get thai audio file names and thai has complex time grammar,
+        therefore, we disassemble this function from th_clock as codes are long to process.
         The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs."""
 
         # Initialize the list of audio names
@@ -138,17 +139,9 @@ class Clock:
         elif hr == 0:
             # A specific word for 12am
             audio_names += ["midnight.wav"]
-        return audio_names
 
-    def minute_audios(self, hr, m):
-        """the minute_audios function plays video when the minute is not at 0.
-    It presents hour information first then minute information"""
-
-        # add the file names of hour
-        audio_names = self.hour_audios(hr)
-        # add the file name of minute number
-        audio_names += [get_minute_filename(m)]
-        # add the file name of word "minutes" in Thai
+        if m != 0:
+            audio_names += [get_minute_filename(m)]
 
         return audio_names
 
@@ -157,11 +150,6 @@ class Clock:
         the current time in Thaiand in Thai in complete sentences."""
 
         hour, minute, second = get_current_time("Asia/Bangkok")
-
-        if minute == 0:
-            audio_names = self.hour_audios(hour)
-        else:
-            audio_names = self.minute_audios(hour, minute)
-
+        audio_names = self.get_th_audio_names(hour, minute)
         play_audio(audio_names, self.speed_rate, self.volume_level, 'ThaiAudios/')
 
