@@ -5,7 +5,7 @@ Except for chinese, all audio files are made by gtts.
 Also, for recorded chinese audio file, we use separate audio library (pydub)
 """
 
-from settings import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
+from audio_setting import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
 from pydub import AudioSegment
 import audio_effects as ae
 from pydub.playback import play

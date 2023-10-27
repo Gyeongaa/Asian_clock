@@ -5,7 +5,7 @@ import pytz
 import threading
 import pygame
 from PIL import Image, ImageTk
-from settings import get_current_time, stop_audio
+from audio_setting import get_current_time, stop_audio
 from alarm import Alarm
 from clock import *
 
@@ -38,7 +38,8 @@ default_time_label.configure(width=20)
 default_time_label.place(x=500, y=50, anchor="w")
 
 # Create a label for displaying the current time
-current_time_label = tk.Label(mainUI, text="", font=("Helvetica", 24),bg="white")
+current_time_label = tk.Label(mainUI, text="",
+                              font=("Helvetica", 24),bg="white")
 current_time_label.place(x=500, y=83, anchor="w")
 current_time_label.configure(width=20)
 
@@ -161,21 +162,27 @@ def button_callback(country: str, type=None):
 
     if country == "CHINA":
         if type == 'gtts':
-            t2 = threading.Thread(target=ch_clock, args=(speed_rate.get(), volume_level.get()))
+            t2 = threading.Thread(target=ch_clock,
+                                  args=(speed_rate.get(), volume_level.get()))
         elif type == 'natural':
-            t2 = threading.Thread(target=ch_natural_clock, args=(speed_rate.get(), volume_level.get()))
+            t2 = threading.Thread(target=ch_natural_clock,
+                                  args=(speed_rate.get(), volume_level.get()))
 
     elif country == "JAPAN":
-        t2 = threading.Thread(target=jp_clock, args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=jp_clock,
+                              args=(speed_rate.get(), volume_level.get()))
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=kr_clock, args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=kr_clock,
+                              args=(speed_rate.get(), volume_level.get()))
 
     elif country == "THAILAND":
-        t2 = threading.Thread(target=th_clock, args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=th_clock,
+                              args=(speed_rate.get(), volume_level.get()))
 
     elif country == "SINGAPORE":
-        t2 = threading.Thread(target=sg_clock, args=(speed_rate.get(), volume_level.get()))
+        t2 = threading.Thread(target=sg_clock,
+                              args=(speed_rate.get(), volume_level.get()))
 
     t1.start()
     t2.start()
@@ -187,7 +194,7 @@ def button_callback(country: str, type=None):
 def china_audio(*args):
     selected_audio = audio_choice.get()
     if selected_audio == "China Natural":
-        # Play natural Chinese audio (replnaturalace with your actual audio file)
+        # Play natural Chinese audio (replace with nature with your actual audio file)
         button_callback("CHINA", 'natural')
     elif selected_audio == "China Synthetic":
         # Play synthetic Chinese audio (replace with your actual audio file)
