@@ -25,22 +25,29 @@ class Clock:
             audio_names 'list' : return audio file name as list type
         """
         if minute != 0:
-            audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
+            audio_names = ['Hello.wav', 'current_time_is.wav',
+                           get_which_meridium(hour), get_hour_filename(hour),
                            get_minute_filename(minute), 'ending_sentence.wav']
         else:
-            audio_names = ['Hello.wav', 'current_time_is.wav', get_which_meridium(hour), get_hour_filename(hour),
+            audio_names = ['Hello.wav', 'current_time_is.wav',
+                           get_which_meridium(hour), get_hour_filename(hour),
                            'ending_sentence.wav']
         return audio_names
 
     def get_ch_audio_names(self, hour, minute, second):
-        #It has same function as get_audio_name() but it is made for only chinese language(natural/gtts type)
-        #Returns audio_names as list type
+        """
+        It has same function as get_audio_name(),
+        but it is made for only chinese language(natural/gtts type)
+        Returns audio_names as list type
+        """
 
         if minute != 0:
-            audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour),
+            audio_names = ['hello.wav', 'current_time.wav',
+                           get_which_meridium(hour), get_hour_filename(hour),
                            get_minute_filename(minute)]
         else:
-            audio_names = ['hello.wav', 'current_time.wav', get_which_meridium(hour), get_hour_filename(hour)]
+            audio_names = ['hello.wav', 'current_time.wav',
+                           get_which_meridium(hour), get_hour_filename(hour)]
 
         return audio_names
     def ch_clock(self):
@@ -92,19 +99,22 @@ class Clock:
         hour, minute, second = get_current_time("Asia/Singapore")
         # Check if it's an even hour
         if minute == 0:
-            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), 'Oclock.wav', get_which_meridium(hour)]
+            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour),
+                           'Oclock.wav', get_which_meridium(hour)]
         elif minute == 30:
-            audio_names = ['Hello.wav', 'Its.wav', 'half.wav', 'past.wav', get_hour_filename(hour),
+            audio_names = ['Hello.wav', 'Its.wav',
+                           'half.wav', 'past.wav', get_hour_filename(hour),
                            get_which_meridium(hour)]
         elif minute == 15:
-            audio_names = ['Hello.wav', 'Its.wav', 'quarter.wav', 'past.wav', get_hour_filename(hour),
+            audio_names = ['Hello.wav', 'Its.wav',
+                           'quarter.wav', 'past.wav', get_hour_filename(hour),
                            get_which_meridium(hour)]
         elif minute == 45:
-            audio_names = ['Hello.wav', 'Its.wav', 'quarter.wav', 'to.wav', get_hour_filename(hour + 1),
-                           get_which_meridium(hour)]
+            audio_names = ['Hello.wav', 'Its.wav', 'quarter.wav', 'to.wav',
+                           get_hour_filename(hour + 1), get_which_meridium(hour)]
         else:
-            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour), get_minute_filename(minute),
-                           get_which_meridium(hour)]
+            audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour),
+                           get_minute_filename(minute), get_which_meridium(hour)]
 
         play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
 

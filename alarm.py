@@ -54,18 +54,20 @@ class Alarm:
         timezone_label = tk.Label(new_alarm_window, text="Select Timezone:")
         self.timezone_var = tk.StringVar()
         self.timezone_var.set("Singapore")  # Default timezone
-        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore", "Shanghai",
-                                      "Tokyo", "Seoul", "Bangkok")
+        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore",
+                                      "Shanghai", "Tokyo", "Seoul", "Bangkok")
         timezone_menu.config(font=("Helvetica", 12))
         timezone_label.pack()
         timezone_menu.pack()
 
         # Create a label to display the confirmation message
-        self.confirmation_label = tk.Label(new_alarm_window, text="", font=("Helvetica", 14))  # Define confirmation_label here
+        self.confirmation_label = tk.Label(new_alarm_window,
+                                           text="", font=("Helvetica", 14))
         self.confirmation_label.pack()
 
         # Create a button to set the custom alarm
-        set_alarm_button = tk.Button(new_alarm_window, text="Set Alarm", command=self.set_custom_alarm)
+        set_alarm_button = tk.Button(new_alarm_window,
+                                     text="Set Alarm", command=self.set_custom_alarm)
         set_alarm_button.pack()
 
         # Append the new custom alarm window to the list
@@ -95,10 +97,12 @@ class Alarm:
             time_difference = (alarm_time - current_time).total_seconds()
 
             if time_difference < 0:
-                confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!"
+                confirmation_text = (f"Alarm ({alarm_name}):\n"
+                                     f"{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!")
                 self.confirmation_label.config(text=confirmation_text)
             else:
-                confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+                confirmation_text = (f"Alarm ({alarm_name}):\n"
+                                     f"{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set")
                 self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
 
                 # Schedule the alarm to trigger after the time difference elapses
