@@ -78,11 +78,6 @@ def get_sec_filename(s: int):
     return path + str(s) + 's.wav'
 
 
-# Determines if we return the equivalent of "past" or "to" in English
-#def with_or_without(m: int):
-#    return 'to.wav' if m > 30 else 'and.wav'
-
-
 # Concatenate the audio files given an array of filename strings
 def concatenate_audio(filenames, lang_path):
     audio = []
