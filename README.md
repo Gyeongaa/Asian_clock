@@ -27,7 +27,7 @@ In the lower-left corner, there is a 'Set Custom Alarm' button, which allows use
 
 Video Demonstration: https://drive.google.com/file/d/1skTsGdIXUPuS9FWFIyHBg8bdQIP7r-yU/view?usp=sharing
 
-## Languages supported
+## Audio languages supported
 - Chinese 
 - English
 - Thai
