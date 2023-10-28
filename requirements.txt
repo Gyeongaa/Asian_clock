@@ -5,5 +5,6 @@ Soundfile==0.12.1
 pytz==2023.3.post1
 pillow==10.0.1
 pydub==0.25.1
-numpy==1.26.1
+numpy==1.25
+pip = 23.3
 PyAudio==0.2.13
