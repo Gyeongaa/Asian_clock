@@ -258,7 +258,8 @@ mainUI.bind("<Configure>", lambda event: set_background())
 
 alarm = Alarm(mainUI)
 # Create a button to open the custom alarm window using create_alarm_window
-create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.create_alarm_window())
+create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
+
 create_alarm_window_button.configure(width=20)
 create_alarm_window_button.place(x=20, y=500)
 

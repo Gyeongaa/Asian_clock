@@ -1,31 +1,18 @@
-"""
-This file contains alarm class
-Create alarm window, set and trigger alarm.
-User can choose the time zone for setting alarm.
-"""
-
 import tkinter as tk
+from tkinter import StringVar, OptionMenu, messagebox
 import pytz
 from datetime import datetime
 import pygame
 from threading import Timer
 
 class Alarm:
-    """
-    This class serves as alarm function.
-
-    Methods:
-        create_alarm_window(): Create alarm window following user input(press alarm button in main ui).
-        set_custom_alarm() : Set custom alarm. It has hour, minute, time zone variables.
-        trigger_alarm() : Play alarm sound on the time user set.
-    """
     def __init__(self, mainUI):
         self.custom_alarms = []
         self.mainUI = mainUI
         self.name_entry = None
         self.confirmation_label = None
 
-    def create_alarm_window(self):
+    def open_alarm_window(self):
         new_alarm_window = tk.Toplevel(self.mainUI)
         new_alarm_window.title("Set Custom Alarm")
         new_alarm_window.geometry("400x400")
@@ -54,20 +41,18 @@ class Alarm:
         timezone_label = tk.Label(new_alarm_window, text="Select Timezone:")
         self.timezone_var = tk.StringVar()
         self.timezone_var.set("Singapore")  # Default timezone
-        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore",
-                                      "Shanghai", "Tokyo", "Seoul", "Bangkok")
+        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore", "Shanghai",
+                                      "Tokyo", "Seoul", "Bangkok")
         timezone_menu.config(font=("Helvetica", 12))
         timezone_label.pack()
         timezone_menu.pack()
 
         # Create a label to display the confirmation message
-        self.confirmation_label = tk.Label(new_alarm_window,
-                                           text="", font=("Helvetica", 14))
+        self.confirmation_label = tk.Label(new_alarm_window, text="", font=("Helvetica", 14))
         self.confirmation_label.pack()
 
         # Create a button to set the custom alarm
-        set_alarm_button = tk.Button(new_alarm_window,
-                                     text="Set Alarm", command=self.set_custom_alarm)
+        set_alarm_button = tk.Button(new_alarm_window, text="Set Alarm", command=self.set_custom_alarm)
         set_alarm_button.pack()
 
         # Append the new custom alarm window to the list
@@ -79,14 +64,12 @@ class Alarm:
         ampm = self.ampm_var.get()
         alarm_name = self.name_entry.get()
         alarm_timezone ='Asia/'+self.timezone_var.get()
+
         try:
-            if alarm_name == '':
-                raise TypeError('You need to add an alarm name')
-        except TypeError as e:
-            confirmation_text = str(e)
-            self.confirmation_label.config(text=confirmation_text)
-        else:
-        # Convert to 24-hour format
+            if not alarm_name:
+                raise ValueError('Please enter an alarm name.')
+
+            # Convert to 24-hour format
             if ampm == "PM":
                 hour = hour + 12
 
@@ -97,17 +80,16 @@ class Alarm:
             time_difference = (alarm_time - current_time).total_seconds()
 
             if time_difference < 0:
-                confirmation_text = (f"Alarm ({alarm_name}):\n"
-                                     f"{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!")
-                self.confirmation_label.config(text=confirmation_text)
-            else:
-                confirmation_text = (f"Alarm ({alarm_name}):\n"
-                                     f"{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set")
-                self.confirmation_label.config(text=confirmation_text)  # Use self.confirmation_label
+                raise ValueError(f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!")
 
-                # Schedule the alarm to trigger after the time difference elapses
-                t = Timer(time_difference, self.trigger_alarm)
-                t.start()
+            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+            self.confirmation_label.config(text=confirmation_text)
+
+            # Schedule the alarm to trigger after the time difference elapses
+            t = Timer(time_difference, self.trigger_alarm)
+            t.start()
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
 
     def trigger_alarm(self):
         # Play the alarm sound (modify this line to use your own sound)
@@ -116,5 +98,3 @@ class Alarm:
 
         # Close the custom alarm window after the alarm triggers
         self.custom_alarms[-1].destroy()
-
-
