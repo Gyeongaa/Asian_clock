@@ -66,13 +66,14 @@ class Alarm:
             alarm_name = self.name_entry.get()
             alarm_timezone = 'Asia/' + self.timezone_var.get()
 
-            if not hour_str:  # Check if the hour is empty or not a valid integer
+            # Check if the hour, minute, am/pm is not chosen, and if the alarm name is not set
+            if not hour_str:
                 raise ValueError('Please select a valid hour for the alarm.')
 
-            if not minute_str:  # Check if the hour is empty
+            if not minute_str:
                 raise ValueError('Please select a valid minute for the alarm.')
 
-            if not ampm:  # Check if the hour is empty
+            if not ampm:
                 raise ValueError('Please select am or pm for the alarm.')
 
             if not alarm_name:
