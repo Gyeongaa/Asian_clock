@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 from audio_setting import get_current_time, stop_audio
 from alarm import Alarm
 from clock import Clock
+import time
 
 # Create the main window
 mainUI = tk.Tk()
@@ -51,7 +52,7 @@ def slider_vl(val):  # slider for volume level
     new_val = min(volume_levels, key=lambda x: abs(x - float(volume_level.get())))
     volume_level.set(new_val)
 
-#regarding to speed rate setting
+#about speed rate setting
 speed_rates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 speed_rate = tk.Scale(mainUI, from_=0.25, to=2,
                      font=("Helvetica", 12, "bold"), command=slider_sr,
@@ -60,7 +61,7 @@ speed_rate.set(1) #default value is 1
 speed_rate.place(x=20, y=600)
 speed_rate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
 
-#regarding to volume level setting
+#about volume level setting
 volume_levels = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 volume_level = tk.Scale(mainUI, from_=0, to=1,
                        font=("Helvetica", 12, "bold"), command=slider_vl,
@@ -155,6 +156,16 @@ def enable_buttons():
     # Enable buttons
     for button in buttons:
         button.config(state="active")
+def t2_completed():
+    print("t2 작업이 완료되었습니다.")
+    enable_buttons()
+
+# t2 쓰레드에서 실행할 함수
+def t2_worker(clock, callback):
+    # t2의 작업을 수행
+    clock.kr_clock()
+    callback()
+
 
 def button_callback(country: str, type=None):
     mainUI.after(500, disable_buttons)
@@ -172,7 +183,8 @@ def button_callback(country: str, type=None):
 
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=clock.kr_clock)
+        t2 = threading.Thread(target=t2_worker, args=(clock, t2_completed,))
+        #t2 = threading.Thread(target=clock.kr_clock)
 
     elif country == "THAILAND":
         t2 = threading.Thread(target=clock.th_clock)
@@ -183,7 +195,8 @@ def button_callback(country: str, type=None):
 
     t1.start()
     t2.start()
-    mainUI.after(8500, enable_buttons)
+
+    #mainUI.after(8500, enable_buttons)
 
 
 # Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
