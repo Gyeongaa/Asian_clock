@@ -156,14 +156,29 @@ def enable_buttons():
     # Enable buttons
     for button in buttons:
         button.config(state="active")
+
+
 def t2_completed():
-    print("t2 작업이 완료되었습니다.")
+    #print("t2_completed")
     enable_buttons()
 
-# t2 쓰레드에서 실행할 함수
-def t2_worker(clock, callback):
+
+def t2_worker(clock, clock_name, callback):
     # t2의 작업을 수행
-    clock.kr_clock()
+    if clock_name == "kr_clock":
+        clock.kr_clock()
+    elif clock_name == "jp_clock":
+        clock.jp_clock()
+    elif clock_name == "ch_clock":
+        clock.ch_clock()
+    elif clock_name == "ch_natural_clock":
+        clock.ch_natural_clock()
+    elif clock_name == "sg_clock":
+        clock.sg_clock()
+    elif clock_name == "th_clock":
+        clock.th_clock()
+
+
     callback()
 
 
@@ -173,30 +188,26 @@ def button_callback(country: str, type=None):
     clock = Clock(speed_rate.get(), volume_level.get())
     if country == "CHINA":
         if type == 'gtts':
-            t2 = threading.Thread(target=clock.ch_clock)
+            t2 = threading.Thread(target=t2_worker, args=(clock, 'ch_clock', t2_completed,))
 
         elif type == 'natural':
-            t2 = threading.Thread(target=clock.ch_natural_clock)
+            t2 = threading.Thread(target=t2_worker, args=(clock, 'ch_natural_clock', t2_completed,))
 
     elif country == "JAPAN":
-        t2 = threading.Thread(target=clock.jp_clock)
-
+        t2 = threading.Thread(target=t2_worker, args=(clock, 'jp_clock', t2_completed,))
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=t2_worker, args=(clock, t2_completed,))
-        #t2 = threading.Thread(target=clock.kr_clock)
+        t2 = threading.Thread(target=t2_worker, args=(clock, 'kr_clock', t2_completed,))
 
     elif country == "THAILAND":
-        t2 = threading.Thread(target=clock.th_clock)
+        t2 = threading.Thread(target=t2_worker, args=(clock, 'th_clock', t2_completed,))
 
     elif country == "SINGAPORE":
-        t2 = threading.Thread(target=clock.sg_clock)
+        t2 = threading.Thread(target=t2_worker, args=(clock, 'sg_clock', t2_completed,))
 
 
     t1.start()
     t2.start()
-
-    #mainUI.after(8500, enable_buttons)
 
 
 # Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
