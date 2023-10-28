@@ -18,11 +18,11 @@ class Clock:
 
     def get_audio_names(self, hour, minute, second):
         """
-        This function is made to improve code reusability since Japanese and Korean have same grammar.
+        This function is made to improve code re-usability since Japanese and Korean have same grammar.
         They have "S + O + V" grammar format, while English has "S + V + O" sequence.
         Therefore, it must be at the end to finish the sentence
         Return:
-            audio_names 'list' : return audio file name as list type
+            audio_names 'list' : return audio file name as a list type
         """
         if minute != 0:
             audio_names = ['Hello.wav', 'current_time_is.wav',
@@ -38,9 +38,8 @@ class Clock:
         """
         It has same function as get_audio_name(),
         but it is made for only chinese language(natural/gtts type)
-        Returns audio_names as list type
+        Returns audio_names as a list type
         """
-
         if minute != 0:
             audio_names = ['hello.wav', 'current_time.wav',
                            get_which_meridium(hour), get_hour_filename(hour),
@@ -51,11 +50,22 @@ class Clock:
 
         return audio_names
     def ch_clock(self):
+        """
+        General description about Country name_clock().
+        Get current local time value(hour, minute, second) from get_current_time() in audio settings.py
+        Get audio name list using get_(ch) audio_names functions.
+        Let program speak current time by using play_audio()
+        """
         hour, minute, second = get_current_time("Asia/Shanghai")
         audio_names = self.get_ch_audio_names(hour, minute, second)
         play_audio(audio_names, self.speed_rate, self.volume_level, 'MandarinAudios/')
 
     def ch_natural_clock(self):
+        """
+        This function covers chinese natural audio file to play.
+        It has basically same function as the other country's clock
+        but, we use other audio library to play audio files to improve audio quality.
+        """
         hour, minute, second = get_current_time("Asia/Shanghai")
         audio_names = self.get_ch_audio_names(hour, minute, second)
         # Generate file paths for all the audios involved
@@ -85,6 +95,7 @@ class Clock:
         # Play the concatenated audio
         play(combined_audio)
 
+    #As below clock functions have same structure as ch_clock, we skipped the comments to each codes.
     def jp_clock(self):
         hour, minute, second = get_current_time("Asia/Tokyo")
         audio_names = self.get_audio_names(hour, minute, second)
@@ -96,8 +107,13 @@ class Clock:
         play_audio(audio_names, self.speed_rate, self.volume_level, 'KoreanAudios/')
 
     def sg_clock(self):
+        """
+        sg_clock has different audio_names order sequence
+        because English has different grammar style from Asian country.
+        We let clock speak current time using half, quarter, O'clock expressions.
+
+        """
         hour, minute, second = get_current_time("Asia/Singapore")
-        # Check if it's an even hour
         if minute == 0:
             audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour),
                            'Oclock.wav', get_which_meridium(hour)]
@@ -119,9 +135,11 @@ class Clock:
         play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
 
     def get_th_audio_names(self, hr, m):
-        """This function is made to get thai audio file names and thai has complex time grammar,
+        """
+        This function is made to get thai audio file names and thai has complex time grammar,
         therefore, we disassemble this function from th_clock as codes are long to process.
-        The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs."""
+        The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs.
+        """
 
         # Initialize the list of audio names
         audio_names = ["hello.wav", "the current time is.wav"]
@@ -156,8 +174,10 @@ class Clock:
         return audio_names
 
     def th_clock(self):
-        """this function plays video according to present
-        the current time in Thaiand in Thai in complete sentences."""
+        """
+        this function plays video according to present
+        the current time in Thailand in complete sentences.
+        """
 
         hour, minute, second = get_current_time("Asia/Bangkok")
         audio_names = self.get_th_audio_names(hour, minute)

@@ -12,7 +12,7 @@ class Alarm:
         self.name_entry = None
         self.confirmation_label = None
 
-    def open_alarm_window(self):
+    def create_alarm_window(self):
         new_alarm_window = tk.Toplevel(self.mainUI)
         new_alarm_window.title("Set Custom Alarm")
         new_alarm_window.geometry("400x400")
@@ -41,8 +41,8 @@ class Alarm:
         timezone_label = tk.Label(new_alarm_window, text="Select Timezone:")
         self.timezone_var = tk.StringVar()
         self.timezone_var.set("Singapore")  # Default timezone
-        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore", "Shanghai",
-                                      "Tokyo", "Seoul", "Bangkok")
+        timezone_menu = tk.OptionMenu(new_alarm_window, self.timezone_var, "Singapore",
+                                      "Shanghai", "Tokyo", "Seoul", "Bangkok")
         timezone_menu.config(font=("Helvetica", 12))
         timezone_label.pack()
         timezone_menu.pack()

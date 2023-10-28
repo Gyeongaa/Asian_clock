@@ -32,23 +32,23 @@ def get_current_time(timezone_name):
     return int(split_time[0]), int(split_time[1]), int(split_time[2])
 
 
-
+"""
+General description for get_audio/sr().
+Function used for reading the audio
+Args:
+    audio 'ndarray' : readed audio file
+    sr 'float' : sampling rate
+Return:
+    audio : audio file 
+    or sr : sampling rate
+    """
 def get_audio(filename: str, path: str):
-    """
-    Function used for reading the audio
-    Args:
-        audio 'ndarray' : readed audio file
-        sr 'float' : sampling rate
-    Return:
-        audio file
-    """
     audio, sr = librosa.load(path + filename, sr=None)
     return audio
 
 
 # Returns the sampling rate of the audio file
 def get_sr(filename: str, path: str):
-
     audio, sr = librosa.load(path + filename)
     return sr
 
@@ -63,9 +63,15 @@ def get_which_meridium(hr: int):
     else:
         return 'AM.wav'
 
+
+"""
+General description for get_hour/minute_seconds_filename()
+Each function takes each hour, minute, seconds to get audio file name(string type).
+They return directory path + audio file name such as 'hours/7h.wav' as a string type.
+"""
 def get_hour_filename(hr: int):
     if hr > 12:
-        hr = hr%12
+        hr = hr % 12
     path = 'hours/'
     return path+str(hr) + 'h.wav'
 
@@ -78,8 +84,12 @@ def get_sec_filename(s: int):
     return path + str(s) + 's.wav'
 
 
-# Concatenate the audio files given an array of filename strings
+
 def concatenate_audio(filenames, lang_path):
+    """
+    Concatenate the audio files given an array of filename strings
+    Returns sampling rate and audio file after concatenating.
+    """
     audio = []
     sr = get_sr(filenames[0], lang_path)
     for name in filenames:
@@ -87,9 +97,20 @@ def concatenate_audio(filenames, lang_path):
     return sr, audio
 
 
-# Convert array of file names to resulting concatenated audio, then plays that
+
 def play_audio(audio_names, speed_rate, volume_level, lang_path):
+    """
+    Convert array of file names to resulting concatenated audio, then plays.
+    Args:
+        audio_names 'list' : a list of audio file names such as ['hours/7h.wav', 'minutes/26m.wav'].
+        speed_rate : speed rate from 0.25 to 2.0.
+        volume_level : volume level from 0 to 1.0.
+        lang_path 'str' : country audio directory path such as 'JapaneseAudios/'
+    Returns:
+        None
+    """
     try:
+        # Concatenate the audio files
         sr, result_audio = concatenate_audio(audio_names, lang_path)
 
         # Apply time stretching only if needed
@@ -122,7 +143,6 @@ def play_audio(audio_names, speed_rate, volume_level, lang_path):
     except Exception as e:
         print("An error occurred:", e)
 
-# Function to play the selected Chinese audio, either in natural or synthetic Chinese voice
 
 # stop playing audios
 def stop_audio():
