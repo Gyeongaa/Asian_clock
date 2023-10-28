@@ -59,15 +59,27 @@ class Alarm:
         self.custom_alarms.append(new_alarm_window)
 
     def set_custom_alarm(self):
-        hour = int(self.hour_var.get())
-        minute = int(self.minute_var.get())
-        ampm = self.ampm_var.get()
-        alarm_name = self.name_entry.get()
-        alarm_timezone ='Asia/'+self.timezone_var.get()
-
         try:
+            hour_str = self.hour_var.get()
+            minute_str = self.minute_var.get()
+            ampm = self.ampm_var.get()
+            alarm_name = self.name_entry.get()
+            alarm_timezone = 'Asia/' + self.timezone_var.get()
+
             if not alarm_name:
                 raise ValueError('Please enter an alarm name.')
+
+            if not hour_str:  # Check if the hour is empty or not a valid integer
+                raise ValueError('Please select a valid hour for the alarm.')
+
+            if not minute_str:  # Check if the hour is empty
+                raise ValueError('Please select a valid minute for the alarm.')
+
+            if not ampm:  # Check if the hour is empty
+                raise ValueError('Please select am or pm for the alarm.')
+
+            hour = int(hour_str)
+            minute = int(minute_str)
 
             # Convert to 24-hour format
             if ampm == "PM":
