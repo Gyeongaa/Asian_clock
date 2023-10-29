@@ -25,7 +25,9 @@ On the left side of the window, the current time in Singapore is shown by defaul
 
 In the lower-left corner, there is a 'Set Custom Alarm' button, which allows users to set alarm times in one of the five Asian timezones to remind themselves of specific tasks. After the alarm is set, a text with the format 'Alarm Alarm_name: year-month-date hour-minute-second AM/PM is set' is diaplayed.
 
-Video Demonstration: https://drive.google.com/file/d/1JMlYQhxqeblZx-_0_98iq_cb_dYJFQBB/view?usp=drive_link
+Video Demonstration: 
+mov: https://drive.google.com/file/d/1JMlYQhxqeblZx-_0_98iq_cb_dYJFQBB/view?usp=drive_link
+mp4: https://drive.google.com/file/d/1pEQTudxevmeS-sZAjiHRE06Ml-nCwuTf/view?usp=drive_link
 
 ## Audio Languages Supported 🌏
 - Chinese 
