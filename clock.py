@@ -35,6 +35,11 @@ class Clock:
         Return:
             audio_names 'list' : return audio file name as a list type
         """
+        #Updated minute by reflecting 3s delay time.
+        #if user pressed button after 11:34:57seconds, clock will speack 11:35
+        if second >= 57:
+            minute +=1
+
         if minute != 0:
             audio_names = ['Hello.wav', 'current_time_is.wav',
                            get_which_meridium(hour), get_hour_filename(hour),
@@ -51,6 +56,8 @@ class Clock:
         but it is made for only chinese language(natural/gtts type)
         Returns audio_names as a list type
         """
+        if second >= 57:
+            minute +=1
         if minute != 0:
             audio_names = ['hello.wav', 'current_time.wav',
                            get_which_meridium(hour), get_hour_filename(hour),
@@ -130,6 +137,9 @@ class Clock:
 
         """
         hour, minute, second = get_current_time("Asia/Singapore")
+        if second >= 57:
+            minute +=1
+
         if minute == 0:
             audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour),
                            'Oclock.wav', get_which_meridium(hour)]
@@ -151,7 +161,7 @@ class Clock:
         play_audio(audio_names, self.speed_rate,
                    self.volume_level, 'EnglishAudios/')
 
-    def get_th_audio_names(self, hr, m):
+    def get_th_audio_names(self, hr, m,s):
         """
         This function is made to get thai audio file names and thai has complex time grammar.
         Therefore, we disassemble this function from th_clock as codes are long to process.
@@ -160,6 +170,9 @@ class Clock:
 
         # Initialize the list of audio names
         audio_names = ["hello.wav", "the current time is.wav"]
+
+        if s >= 57:
+            m +=1
 
         if hr <= 5 and hr >= 1:
             # When it's 1-5am, the format is "am" (for 1-5) + the number of the hour
@@ -198,7 +211,7 @@ class Clock:
         the current time in Thailand in complete sentences.
         """
         hour, minute, second = get_current_time("Asia/Bangkok")
-        audio_names = self.get_th_audio_names(hour, minute)
+        audio_names = self.get_th_audio_names(hour, minute, second)
         play_audio(audio_names, self.speed_rate, self.volume_level,
                    'ThaiAudios/')
 
