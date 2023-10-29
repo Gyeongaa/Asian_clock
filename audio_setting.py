@@ -1,9 +1,9 @@
 """
 This file contains basic functions for audio processing.
-It covers getting current time, audio, sampling rate and hour, minute, seconds file name etc.
+It covers getting current time, audio, sampling rate
+and hour, minute, seconds file name etc.
 Also contains vital code for concatenation, and play.
 
-Authors: Soogyeong Shin
 """
 
 import librosa
