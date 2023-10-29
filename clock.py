@@ -5,15 +5,18 @@ Except for chinese, all audio files are made by gtts.
 Also, for recorded chinese audio file, we use separate audio library (pydub)
 """
 
+# Import standard library modules
+import audio_effects as ae
+
 # Import external libraries
 from pydub import AudioSegment
 from pydub.playback import play
 from pydub.utils import ratio_to_db
 
-# Import your own modules
+# Import our own modules
 from audio_setting import play_audio, get_current_time, \
     get_which_meridium, get_hour_filename, get_minute_filename
-import audio_effects as ae
+
 
 class Clock:
     """

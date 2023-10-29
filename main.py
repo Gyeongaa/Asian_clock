@@ -2,14 +2,14 @@
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
-import pytz
 import threading
 
 # Import external libraries
 import pygame
 from PIL import Image, ImageTk
+import pytz
 
-# Import your own modules
+# Import our own modules
 from audio_setting import get_current_time, stop_audio
 from alarm import Alarm
 from clock import Clock
