@@ -134,7 +134,6 @@ class Clock:
         sg_clock has different audio_names order sequence
         because English has different grammar style from Asian country.
         We let clock speak current time using half, quarter, O'clock expressions.
-
         """
         hour, minute, second = get_current_time("Asia/Singapore")
         if second >= 57:
