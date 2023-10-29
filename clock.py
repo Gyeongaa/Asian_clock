@@ -5,7 +5,8 @@ Except for chinese, all audio files are made by gtts.
 Also, for recorded chinese audio file, we use separate audio library (pydub)
 """
 
-from audio_setting import play_audio, get_current_time, get_which_meridium, get_hour_filename, get_minute_filename
+from audio_setting import play_audio, get_current_time, \
+    get_which_meridium, get_hour_filename, get_minute_filename
 from pydub import AudioSegment
 import audio_effects as ae
 from pydub.playback import play
@@ -13,7 +14,7 @@ from pydub.utils import ratio_to_db
 
 class Clock:
     """
-    Clock class has two class instance attirubete : speed rate, volum level.
+    Clock class has two class instance attributes : speed rate, volum level.
     It has 9 class methods. Descriptions are located within each function
     """
     def __init__(self, speed_rate=1, volume_level=1):
@@ -56,7 +57,8 @@ class Clock:
     def ch_clock(self):
         """
         General description about Country name_clock().
-        Get current local time value(hour, minute, second) from get_current_time() in audio settings.py
+        Get current local time value(hour, minute, second)
+        from get_current_time() in audio settings.py
         Get audio name list using get_(ch) audio_names functions.
         Let program speak current time by using play_audio()
         """
@@ -99,7 +101,8 @@ class Clock:
         # Play the concatenated audio
         play(combined_audio)
 
-    #As below clock functions have same structure as ch_clock, we skipped the comments to each codes.
+    #As below clock functions have same structure as ch_clock,
+    # we skipped the comments to each codes.
     def jp_clock(self):
         hour, minute, second = get_current_time("Asia/Tokyo")
         audio_names = self.get_audio_names(hour, minute, second)
@@ -140,8 +143,8 @@ class Clock:
 
     def get_th_audio_names(self, hr, m):
         """
-        This function is made to get thai audio file names and thai has complex time grammar,
-        therefore, we disassemble this function from th_clock as codes are long to process.
+        This function is made to get thai audio file names and thai has complex time grammar.
+        Therefore, we disassemble this function from th_clock as codes are long to process.
         The time system used in Thailand is the 6-hour clock, and the word for "am" and "pm" differs.
         """
 
@@ -161,8 +164,10 @@ class Clock:
             audio_names += ["midday.wav"]
 
         elif hr <= 17 and hr >= 13:
-            # When it's 1-5pm, the format is "pm" (for 1-5) + the number of the hour + "o'clock" in Thai
-            audio_names += ["pm_1_5.wav", get_hour_filename(hr), "o'clock.wav"]
+            # When it's 1-5pm, the format is "pm" (for 1-5)
+            # + the number of the hour + "o'clock" in Thai
+            audio_names += ["pm_1_5.wav", get_hour_filename(hr),
+                            "o'clock.wav"]
 
         elif hr <= 23 and hr >= 18:
             # When it's 6-11pm, the format is the number of the hour + "pm" (for 6-11)
@@ -182,8 +187,8 @@ class Clock:
         this function plays video according to present
         the current time in Thailand in complete sentences.
         """
-
         hour, minute, second = get_current_time("Asia/Bangkok")
         audio_names = self.get_th_audio_names(hour, minute)
-        play_audio(audio_names, self.speed_rate, self.volume_level, 'ThaiAudios/')
+        play_audio(audio_names, self.speed_rate, self.volume_level,
+                   'ThaiAudios/')
 
