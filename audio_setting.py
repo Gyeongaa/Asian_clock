@@ -15,6 +15,7 @@ import pytz
 from datetime import datetime
 
 
+
 def get_current_time(timezone_name):
     """
     Get current time based on the time zone that user selected
@@ -146,6 +147,7 @@ def play_audio(audio_names, speed_rate, volume_level, lang_path):
 
 # stop playing audios
 def stop_audio():
+    pygame.mixer.init()
     pygame.mixer.music.stop()
 
 
