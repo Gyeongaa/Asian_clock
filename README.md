@@ -1,9 +1,9 @@
-# Asian_clock
+# Asian_clock⏰
 
 ## Project Description
 This talking clock was developed as a group project for the 'Introduction to Voice Technology' and 'Programming' courses as part of the MSc Voice Technology program at RUG - Campus Fryslan.
 
-## Installation
+## Installation ✅
 To get started, follow the installation instructions below.
 1. Python version
     Ensure you have Python 3.9 installed on your system. You can download new Python versions from here: https://www.python.org/downloads/
@@ -27,16 +27,16 @@ In the lower-left corner, there is a 'Set Custom Alarm' button, which allows use
 
 Video Demonstration: https://drive.google.com/file/d/1JMlYQhxqeblZx-_0_98iq_cb_dYJFQBB/view?usp=drive_link
 
-## Audio Languages Supported
+## Audio Languages Supported 🌏
 - Chinese 
-- English
-- Thai
-- Japanese
-- Korean
+- English 
+- Thai 
+- Japanese 
+- Korean 
 
 ## Linguistic Rules for Expressing Time
 
-### Chinese
+### Chinese 🇨🇳
 In Chinese, the time is typically expressed in the 24-hour clock format or 12-hour clock format. Here's how time is commonly expressed in Chinese of 12-hour clock format:
 
 "现在是" (It's now) + "上午" (AM) or "下午" (PM) + hour + "点" (hour) + minute + "分" (minute)
@@ -55,7 +55,7 @@ For example:
 10:45 PM - 现在下午十点四十五分 (It's now 10:45 PM).
 
 
-### English
+### English 🇸🇬
 In English, the time in 12-hour clock format is commonly expressed as:
 
 "It's" + minutes/(a) quarter(s) + "past" "to"  + hour + (optional) "AM" or "PM"
@@ -86,7 +86,7 @@ For example:
 
 10:50 PM - "It's 10 minutes to 11 PM"
 
-### Thai
+### Thai 🇹🇭
 Thai people commonly express time using a 6-hour clock system, and this can be divided into four time periods, as well as four special expressions:
 
 *Four Time Periods:*
@@ -113,7 +113,7 @@ Thai people commonly express time using a 6-hour clock system, and this can be d
 The whole sentence to express time in Thai:
 ตอนนี้เวลา (the current time is) + am/pm & hour (follow the rules above) + number + นาที (minute)
 
-### Japanese
+### Japanese 🇯🇵
 In Japanese, time is typically expressed in a 12-hour clock format. The common format for time expression is as follows:
 
 "現在は"（It's now） + "午前" (AM) or "午後" (PM) + hour + "時" (hour) + minute + "分" (minute) + "です" (desu).
@@ -133,7 +133,7 @@ Here are some examples:
 
 3:45 PM - "現在は午後3時45分です" (It's now 3:45 PM).
 
-### Korean
+### Korean 🇰🇷
 In South Korea, time is typically expressed using the 12-hour clock format. In the Korean language, the common way to express time is as follows:
 
 "지금은" (It's now) + "오전" (AM) or "오후" (PM) + the hour + "시" (hour) + the minute + "분" (minute) + "입니다" (is).
