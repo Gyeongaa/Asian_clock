@@ -70,7 +70,8 @@ class Clock:
         """
         hour, minute, second = get_current_time("Asia/Shanghai")
         audio_names = self.get_ch_audio_names(hour, minute, second)
-        play_audio(audio_names, self.speed_rate, self.volume_level, 'MandarinAudios/')
+        play_audio(audio_names, self.speed_rate,
+                   self.volume_level, 'MandarinAudios/')
 
     def ch_natural_clock(self):
         """
@@ -112,12 +113,14 @@ class Clock:
     def jp_clock(self):
         hour, minute, second = get_current_time("Asia/Tokyo")
         audio_names = self.get_audio_names(hour, minute, second)
-        play_audio(audio_names, self.speed_rate, self.volume_level, 'JapaneseAudios/')
+        play_audio(audio_names, self.speed_rate,
+                   self.volume_level, 'JapaneseAudios/')
 
     def kr_clock(self):
         hour, minute, second = get_current_time("Asia/Seoul")
         audio_names = self.get_audio_names(hour, minute, second)
-        play_audio(audio_names, self.speed_rate, self.volume_level, 'KoreanAudios/')
+        play_audio(audio_names, self.speed_rate,
+                   self.volume_level, 'KoreanAudios/')
 
     def sg_clock(self):
         """
@@ -145,7 +148,8 @@ class Clock:
             audio_names = ['Hello.wav', 'Its.wav', get_hour_filename(hour),
                            get_minute_filename(minute), get_which_meridium(hour)]
 
-        play_audio(audio_names, self.speed_rate, self.volume_level, 'EnglishAudios/')
+        play_audio(audio_names, self.speed_rate,
+                   self.volume_level, 'EnglishAudios/')
 
     def get_th_audio_names(self, hr, m):
         """

@@ -39,7 +39,7 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Create a label for the default time text
 default_time_label = tk.Label(mainUI, text="Singapore time (Default)",
-                              font=("Helvetica", 24, "bold","italic"), bg="white")
+                              font=("Helvetica",24,"bold","italic"),bg="white")
 default_time_label.configure(width=20)
 default_time_label.place(x=500, y=50, anchor="w")
 
@@ -54,7 +54,8 @@ def slider_sr(val):  # slider for speed rate
     speed_rate.set(new_val)
 
 def slider_vl(val):  # slider for volume level
-    new_val = min(volume_levels, key=lambda x: abs(x - float(volume_level.get())))
+    new_val = min(volume_levels,
+                  key=lambda x: abs(x - float(volume_level.get())))
     volume_level.set(new_val)
 
 #about speed rate setting
@@ -64,7 +65,8 @@ speed_rate = tk.Scale(mainUI, from_=0.25, to=2,
                      orient="horizontal", digits=3, resolution=0.25)
 speed_rate.set(1) #default value is 1
 speed_rate.place(x=20, y=600)
-speed_rate.configure(bg='white', label='Change the speed rate', troughcolor='grey', length=360)
+speed_rate.configure(bg='white', label='Change the speed rate',
+                     troughcolor='grey', length=360)
 
 #about volume level setting
 volume_levels = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -73,7 +75,8 @@ volume_level = tk.Scale(mainUI, from_=0, to=1,
                        orient="horizontal", digits=3, resolution=0.1)
 volume_level.set(1)
 volume_level.place(x=20, y=665)
-volume_level.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
+volume_level.configure(bg='white', label='Change the volume level',
+                       troughcolor='grey', length=360)
 
 
 #set background image following current time, this will be executed when mainloop starts
@@ -106,7 +109,8 @@ mode_combobox = ttk.Combobox(mainUI, textvariable=bg_choice)
 mode_combobox["values"] = ("Light Mode", "Dark Mode")
 mode_combobox.set(current_mode)
 
-mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(bg_choice.get()))
+mode_combobox.bind("<<ComboboxSelected>>",
+                   lambda event: change_background(bg_choice.get()))
 mode_combobox.configure(width=20)
 mode_combobox.place(x=20, y=540)
 
@@ -136,7 +140,8 @@ def show_local_time(time_zone):
     local_time_window = tk.Toplevel(mainUI)
     local_time_window.title("Local Time")
     local_time_window.geometry("300x100")
-    time_label = tk.Label(local_time_window, text=time_str, font=("Helvetica", 20))
+    time_label = tk.Label(local_time_window,
+                          text=time_str, font=("Helvetica", 20))
     time_label.pack(pady=20)
     time_label.config(text=time_str)
 
@@ -191,28 +196,35 @@ def button_callback(country: str, type=None):
     #disabled buttons
     mainUI.after(500, disable_buttons)
     #create thread1 to show local time on another window
-    t1 = threading.Thread(target=show_local_time, args=(CAPITAL_DICT[country],))
+    t1 = threading.Thread(target=show_local_time,
+                          args=(CAPITAL_DICT[country],))
     #create instance of Clock class
     clock = Clock(speed_rate.get(), volume_level.get())
     # Set t2 thread based on selected country and type.
     if country == "CHINA":
         if type == 'gtts':
-            t2 = threading.Thread(target=t2_worker, args=(clock, 'ch_clock', t2_completed,))
+            t2 = threading.Thread(target=t2_worker,
+                                  args=(clock, 'ch_clock', t2_completed,))
 
         elif type == 'natural':
-            t2 = threading.Thread(target=t2_worker, args=(clock, 'ch_natural_clock', t2_completed,))
+            t2 = threading.Thread(target=t2_worker,
+                                  args=(clock, 'ch_natural_clock', t2_completed,))
 
     elif country == "JAPAN":
-        t2 = threading.Thread(target=t2_worker, args=(clock, 'jp_clock', t2_completed,))
+        t2 = threading.Thread(target=t2_worker,
+                              args=(clock, 'jp_clock', t2_completed,))
 
     elif country == "KOREA":
-        t2 = threading.Thread(target=t2_worker, args=(clock, 'kr_clock', t2_completed,))
+        t2 = threading.Thread(target=t2_worker,
+                              args=(clock, 'kr_clock', t2_completed,))
 
     elif country == "THAILAND":
-        t2 = threading.Thread(target=t2_worker, args=(clock, 'th_clock', t2_completed,))
+        t2 = threading.Thread(target=t2_worker,
+                              args=(clock, 'th_clock', t2_completed,))
 
     elif country == "SINGAPORE":
-        t2 = threading.Thread(target=t2_worker, args=(clock, 'sg_clock', t2_completed,))
+        t2 = threading.Thread(target=t2_worker,
+                              args=(clock, 'sg_clock', t2_completed,))
 
 
     t1.start()
@@ -242,10 +254,14 @@ button1.bind("<<ComboboxSelected>>",china_audio)
 button1.configure(width= 12)
 
 # Create buttons for different countries
-button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP, command=lambda: button_callback("JAPAN"), width=9)
-button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP, command=lambda: button_callback("KOREA"), width=9)
-button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP, command=lambda: button_callback("THAILAND"), width=9)
-button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP, command=lambda: button_callback("SINGAPORE"), width=9)
+button2 = tk.Button(mainUI,text="JAPAN", compound=tk.TOP,
+                    command=lambda: button_callback("JAPAN"), width=9)
+button3 = tk.Button(mainUI,text="KOREA", compound=tk.TOP,
+                    command=lambda: button_callback("KOREA"), width=9)
+button4 = tk.Button(mainUI, text="THAILAND", compound=tk.TOP,
+                    command=lambda: button_callback("THAILAND"), width=9)
+button5 = tk.Button(mainUI, text="SINGAPORE", compound=tk.TOP,
+                    command=lambda: button_callback("SINGAPORE"), width=9)
 
 buttons = [button1, button2, button3, button4, button5]
 
@@ -268,7 +284,8 @@ mainUI.bind("<Configure>", lambda event: set_background())
 
 alarm = Alarm(mainUI)
 # Create a button to open the custom alarm window using create_alarm_window
-create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.create_alarm_window())
+create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm",
+                                       command=lambda: alarm.create_alarm_window())
 
 create_alarm_window_button.configure(width=20)
 create_alarm_window_button.place(x=20, y=500)
