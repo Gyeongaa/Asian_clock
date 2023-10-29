@@ -3,12 +3,13 @@ from tkinter import ttk
 from datetime import datetime
 import pytz
 import threading
+
 import pygame
 from PIL import Image, ImageTk
 from audio_setting import get_current_time, stop_audio
 from alarm import Alarm
 from clock import Clock
-import time
+
 
 # Create the main window
 mainUI = tk.Tk()
@@ -67,8 +68,9 @@ volume_level = tk.Scale(mainUI, from_=0, to=1,
                        font=("Helvetica", 12, "bold"), command=slider_vl,
                        orient="horizontal", digits=3, resolution=0.1)
 volume_level.set(1)
-volume_level.place(x=20, y=650)
+volume_level.place(x=20, y=665)
 volume_level.configure(bg='white', label='Change the volume level', troughcolor='grey', length=360)
+
 
 #set background image following current time, this will be executed when mainloop starts
 current_mode = ''
@@ -82,8 +84,8 @@ def set_background():
         background_label.config(image=night_background_photo)
         current_mode = 'Dark Mode'
 
-#Following user input, user can change background mode
 
+#Following user input, user can change background mode
 def change_background(mode):
     global current_mode
     if mode == "Light Mode":
@@ -104,19 +106,19 @@ mode_combobox.bind("<<ComboboxSelected>>", lambda event: change_background(bg_ch
 mode_combobox.configure(width=20)
 mode_combobox.place(x=20, y=540)
 
-# Function to update the Singapore time label
-def update_singapore_time():
+#Function to update the Singapore time label(default time in asian clock)
+def update_default_time():
     singapore_timezone = pytz.timezone("Asia/Singapore")
     current_time = datetime.now(singapore_timezone)
     time_str = current_time.strftime("%Y-%m-%d %I:%M:%S %p")
     current_time_label.config(text=time_str)
-    mainUI.after(1000, update_singapore_time)  # Update every second
+    mainUI.after(1000, update_default_time)  # Update every second
 
 # Start updating the Singapore time label
-update_singapore_time()
+update_default_time()
 
 
-#get world time
+#get world time using pytz, datetime library
 def get_world_time(timezone_name: str):
     local_timezone = pytz.timezone(timezone_name)
     current_time = datetime.now(local_timezone)
@@ -124,6 +126,7 @@ def get_world_time(timezone_name: str):
     time_str = time_str.lstrip("0").replace(" 0", " ")
     return time_str
 
+#show current local time
 def show_local_time(time_zone):
     time_str = get_world_time(time_zone)
     # Create a new window to display local time
@@ -148,21 +151,23 @@ capital_dict = {
     "THAILAND": "Asia/Bangkok",
     "SINGAPORE": "Asia/Singapore"}
 
+#disabled buttons
 def disable_buttons():
     for button in buttons:
         button.config(state="disabled")
 
+#enabled buttons
 def enable_buttons():
     # Enable buttons
     for button in buttons:
         button.config(state="active")
 
-
+#trigger to let button enabled
 def t2_completed():
     #print("t2_completed")
     enable_buttons()
 
-
+#run each country's clock after pressed each country's button.
 def t2_worker(clock, clock_name, callback):
     # t2의 작업을 수행
     if clock_name == "kr_clock":
@@ -177,12 +182,16 @@ def t2_worker(clock, clock_name, callback):
         clock.sg_clock()
     elif clock_name == "th_clock":
         clock.th_clock()
-
-
     callback()
 
 
 def button_callback(country: str, type=None):
+    """
+
+    :param country:
+    :param type:
+    :return:
+    """
     mainUI.after(500, disable_buttons)
     t1 = threading.Thread(target=show_local_time, args=(capital_dict[country],))
     clock = Clock(speed_rate.get(), volume_level.get())
@@ -247,6 +256,7 @@ button3.place(x=870, y=300)
 button4.place(x=620, y=540)
 button5.place(x=640, y=680)
 
+
 # Function to stop audio playing when the window is closed
 def on_closing():
     #pygame.mixer.init()
@@ -258,7 +268,7 @@ mainUI.bind("<Configure>", lambda event: set_background())
 
 alarm = Alarm(mainUI)
 # Create a button to open the custom alarm window using create_alarm_window
-create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.open_alarm_window())
+create_alarm_window_button = tk.Button(mainUI, text="Set Custom Alarm", command=lambda: alarm.create_alarm_window())
 
 create_alarm_window_button.configure(width=20)
 create_alarm_window_button.place(x=20, y=500)
