@@ -6,14 +6,16 @@ Also contains vital code for concatenation, and play.
 
 """
 
-import librosa
+# Import standard library modules
+from datetime import datetime
+import time
+
+# Import external libraries
 import numpy as np
 import pygame
 import soundfile as sf
-import time
 import pytz
-from datetime import datetime
-
+import librosa
 
 
 def get_current_time(timezone_name):
@@ -149,5 +151,3 @@ def play_audio(audio_names, speed_rate, volume_level, lang_path):
 def stop_audio():
     pygame.mixer.init()
     pygame.mixer.music.stop()
-
-

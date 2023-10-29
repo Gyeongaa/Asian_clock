@@ -1,9 +1,12 @@
+# Import standard library modules
 import tkinter as tk
 from tkinter import messagebox
 import pytz
 from datetime import datetime
-import pygame
 from threading import Timer
+
+# Import external libraries
+import pygame
 
 class Alarm:
     def __init__(self, mainUI):
