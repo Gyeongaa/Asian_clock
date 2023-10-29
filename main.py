@@ -126,7 +126,6 @@ def get_world_time(timezone_name: str):
     time_str = time_str.lstrip("0").replace(" 0", " ")
     return time_str
 
-#show current local time
 def show_local_time(time_zone):
     time_str = get_world_time(time_zone)
     # Create a new window to display local time
@@ -151,7 +150,6 @@ capital_dict = {
     "THAILAND": "Asia/Bangkok",
     "SINGAPORE": "Asia/Singapore"}
 
-#disabled buttons
 def disable_buttons():
     for button in buttons:
         button.config(state="disabled")
@@ -167,7 +165,7 @@ def t2_completed():
     #print("t2_completed")
     enable_buttons()
 
-#run each country's clock after pressed each country's button.
+
 def t2_worker(clock, clock_name, callback):
     # t2의 작업을 수행
     if clock_name == "kr_clock":

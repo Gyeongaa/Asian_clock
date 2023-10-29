@@ -12,6 +12,12 @@ class Alarm:
         self.name_entry = None
         self.confirmation_label = None
 
+    """
+    General description for create_alarm_window()
+    get the alarm time that user input through the option menu.
+    Their are 4 variables: hour, minute, am/pm, timezone.
+    """
+
     def create_alarm_window(self):
         new_alarm_window = tk.Toplevel(self.mainUI)
         new_alarm_window.title("Set Custom Alarm")
@@ -58,6 +64,11 @@ class Alarm:
         # Append the new custom alarm window to the list
         self.custom_alarms.append(new_alarm_window)
 
+    """
+    store the four variables that user's input,
+    error handling: message box, if any input was missing, it will pump out to notify users.
+    also compare the alarm time to current time, get the time difference to trigger alarm.
+    """
     def set_custom_alarm(self):
         try:
             hour_str = self.hour_var.get()
@@ -104,6 +115,9 @@ class Alarm:
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
+    """
+    activate the alarm, play the alarm music.
+    """
     def trigger_alarm(self):
         # Play the alarm sound (modify this line to use your own sound)
         alarm_sound = pygame.mixer.Sound("alarm.wav")
