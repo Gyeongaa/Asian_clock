@@ -12,6 +12,10 @@ from pydub.playback import play
 from pydub.utils import ratio_to_db
 
 class Clock:
+    """
+    Clock class has two class instance attirubete : speed rate, volum level.
+    It has 9 class methods. Descriptions are located within each function
+    """
     def __init__(self, speed_rate=1, volume_level=1):
         self.speed_rate = speed_rate
         self.volume_level = volume_level

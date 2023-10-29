@@ -15,7 +15,7 @@ class Alarm:
     """
     General description for create_alarm_window()
     get the alarm time that user input through the option menu.
-    Their are 4 variables: hour, minute, am/pm, timezone.
+    There are 4 variables: hour, minute, am/pm, timezone.
     """
 
     def create_alarm_window(self):
