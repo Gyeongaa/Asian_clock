@@ -167,7 +167,7 @@ def t2_completed():
 
 
 def t2_worker(clock, clock_name, callback):
-    # t2의 작업을 수행
+    # t2 work
     if clock_name == "kr_clock":
         clock.kr_clock()
     elif clock_name == "jp_clock":
@@ -184,15 +184,13 @@ def t2_worker(clock, clock_name, callback):
 
 
 def button_callback(country: str, type=None):
-    """
-
-    :param country:
-    :param type:
-    :return:
-    """
+    #disabled buttons
     mainUI.after(500, disable_buttons)
+    #create thread1 to show local time on another window
     t1 = threading.Thread(target=show_local_time, args=(capital_dict[country],))
+    #create instance of Clock class
     clock = Clock(speed_rate.get(), volume_level.get())
+    # Set t2 thread based on selected country and type.
     if country == "CHINA":
         if type == 'gtts':
             t2 = threading.Thread(target=t2_worker, args=(clock, 'ch_clock', t2_completed,))
