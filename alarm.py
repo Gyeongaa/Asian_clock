@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import pytz
 from datetime import datetime
 import pygame
@@ -103,16 +104,18 @@ class Alarm:
             time_difference = (alarm_time - current_time).total_seconds()
 
             if time_difference < 0:
-                raise ValueError(f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!")
+                raise ValueError(f"Alarm ({alarm_name}):\
+                \n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is past!")
 
-            confirmation_text = f"Alarm ({alarm_name}):\n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
+            confirmation_text = f"Alarm ({alarm_name}):\
+            \n{alarm_time.strftime('%Y-%m-%d %I:%M:%S %p')} is set"
             self.confirmation_label.config(text=confirmation_text)
 
             # Schedule the alarm to trigger after the time difference elapses
             t = Timer(time_difference, self.trigger_alarm)
             t.start()
         except ValueError as e:
-            tk.messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error", str(e))
 
     """
     activate the alarm, play the alarm music.
