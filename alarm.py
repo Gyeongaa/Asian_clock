@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import StringVar, OptionMenu, messagebox
 import pytz
 from datetime import datetime
 import pygame
@@ -113,7 +112,7 @@ class Alarm:
             t = Timer(time_difference, self.trigger_alarm)
             t.start()
         except ValueError as e:
-            messagebox.showerror("Error", str(e))
+            tk.messagebox.showerror("Error", str(e))
 
     """
     activate the alarm, play the alarm music.
