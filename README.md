@@ -1,6 +1,6 @@
 # Asian_clock
 
-## Project description
+## Project Description
 This talking clock was developed as a group project for the 'Introduction to Voice Technology' and 'Programming' courses as part of the MSc Voice Technology program at RUG - Campus Fryslan.
 
 ## Installation
@@ -25,16 +25,16 @@ On the left side of the window, the current time in Singapore is shown by defaul
 
 In the lower-left corner, there is a 'Set Custom Alarm' button, which allows users to set alarm times in one of the five Asian timezones to remind themselves of specific tasks. After the alarm is set, a text with the format 'Alarm Alarm_name: year-month-date hour-minute-second AM/PM is set' is diaplayed.
 
-Video Demonstration: [https://drive.google.com/file/d/1skTsGdIXUPuS9FWFIyHBg8bdQIP7r-yU/view?usp=sharing](https://drive.google.com/file/d/1_7wTOaBDIKGBF1bBJaReBSDEu-7velSG/view)
+Video Demonstration: [[https://drive.google.com/file/d/1skTsGdIXUPuS9FWFIyHBg8bdQIP7r-yU/view?usp=sharing](https://drive.google.com/file/d/1_7wTOaBDIKGBF1bBJaReBSDEu-7velSG/view)](https://drive.google.com/file/d/16UGd4yynMl1K8bhJo4A7u0cTYAhg_KH2/view?usp=sharing)
 
-## Audio languages supported
+## Audio Languages Supported
 - Chinese 
 - English
 - Thai
 - Japanese
 - Korean
 
-## Linguistic rules for telling time
+## Linguistic Rules for Expressing Time
 
 ### Chinese
 In Chinese, the time is typically expressed in the 24-hour clock format or 12-hour clock format. Here's how time is commonly expressed in Chinese of 12-hour clock format:
