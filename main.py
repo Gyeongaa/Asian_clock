@@ -143,7 +143,7 @@ def show_local_time(time_zone):
     update_local_time()
 
 
-capital_dict = {
+CAPITAL_DICT = {
     "CHINA": "Asia/Shanghai",
     "JAPAN": "Asia/Tokyo",
     "KOREA": "Asia/Seoul",
@@ -187,7 +187,7 @@ def button_callback(country: str, type=None):
     #disabled buttons
     mainUI.after(500, disable_buttons)
     #create thread1 to show local time on another window
-    t1 = threading.Thread(target=show_local_time, args=(capital_dict[country],))
+    t1 = threading.Thread(target=show_local_time, args=(CAPITAL_DICT[country],))
     #create instance of Clock class
     clock = Clock(speed_rate.get(), volume_level.get())
     # Set t2 thread based on selected country and type.
