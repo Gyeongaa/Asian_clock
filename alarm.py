@@ -54,11 +54,13 @@ class Alarm:
         timezone_menu.pack()
 
         # Create a label to display the confirmation message
-        self.confirmation_label = tk.Label(new_alarm_window, text="", font=("Helvetica", 14))
+        self.confirmation_label = tk.Label(new_alarm_window, \
+                                           text="", font=("Helvetica", 14))
         self.confirmation_label.pack()
 
         # Create a button to set the custom alarm
-        set_alarm_button = tk.Button(new_alarm_window, text="Set Alarm", command=self.set_custom_alarm)
+        set_alarm_button = tk.Button(new_alarm_window, \
+                                     text="Set Alarm", command=self.set_custom_alarm)
         set_alarm_button.pack()
 
         # Append the new custom alarm window to the list
